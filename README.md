@@ -1,2 +1,2 @@
-# Semesterarbeit
-Semesterarbeit  WS 21/22
+# Projektarbeit
+Projektarbeit  WS 21/22
