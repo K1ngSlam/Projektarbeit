@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using System.Linq;
 public class ControllerKeyboard : SuperController
 {
-
-
     void Start()
     {
         Debug.Log("Keyboard Start");

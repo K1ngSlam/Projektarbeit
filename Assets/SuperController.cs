@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 public class SuperController : MonoBehaviour
 {
     [SerializeField]
@@ -51,8 +53,8 @@ public class SuperController : MonoBehaviour
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                return;
-                //TODO: zurück zur Menue Scene und Speichern des Keyboard Averages
+                SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
+                //TODO:Speichern des Averages
             }
             else if (!clockisTicking)
             {
