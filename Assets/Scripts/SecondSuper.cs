@@ -30,6 +30,7 @@ public class SecondSuper : MonoBehaviour
     protected void Starter(string StarterButtonName, KeyCode key, List<KeyCode> codes)
     {
         _StartKey = key;
+        _SearchedKey = key;
         if (!StarterButtonName.Equals(""))
         {
             _StarterButtonName = StarterButtonName + " ";
@@ -38,10 +39,8 @@ public class SecondSuper : MonoBehaviour
         green = new Color(73f / 255f, 182f / 255f, 117f / 255f);
         background.color = red;
         _codes = codes;
-        int random_key_index = Random.Range(0, codes.Count);
-        _SearchedKey = codes[random_key_index];
-
-
+        //int random_key_index = Random.Range(0, codes.Count);
+        //_SearchedKey = codes[random_key_index];
         reactionTime = 0f;
         randomDelay = 0f;
         startTime = 0f;
@@ -54,7 +53,17 @@ public class SecondSuper : MonoBehaviour
 
     protected void Updater()
     {
-        if (Input.GetKeyDown(_StartKey))
+       
+        if (Input.anyKeyDown && clockisTicking && !timerstopable)
+        {
+            StopCoroutine("StartDelay");
+            reactionTime = 0f;
+            _SearchedKey = _StartKey;
+            clockisTicking = false;
+            timerstopable = false;
+            information.text = "Too soon!!\n Press " + _StarterButtonName + "to start again";
+        }
+        else if (Input.GetKeyDown(_SearchedKey))
         {
             if (!clockisTicking && counter == 3)
             {
@@ -77,8 +86,7 @@ public class SecondSuper : MonoBehaviour
             else if (clockisTicking && timerstopable)
             {
                 StopCoroutine("StartDelay");
-                int random_key_index = Random.Range(0, _codes.Count);
-                _SearchedKey = _codes[random_key_index];
+                _SearchedKey = _StartKey;
                 counter++;
                 Debug.Log(counter);
                 reactionTime = Time.time - startTime;
@@ -89,58 +97,20 @@ public class SecondSuper : MonoBehaviour
                 }
                 else
                 {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n Press " + _StarterButtonName + "to start again";
+                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n Press " + _SearchedKey.ToString() + " to start again";
                 }
                 clockisTicking = false;
             }
-            else if (clockisTicking && !timerstopable)
+            /*else if (clockisTicking && !timerstopable)
             {
                 StopCoroutine("StartDelay");
                 reactionTime = 0f;
+                _SearchedKey = _StartKey;
                 clockisTicking = false;
                 timerstopable = false;
                 information.text = "Too soon!!\n Press " + _StarterButtonName + "to start again";
-            }
+            }*/
         }
-
-        if (Input.GetKeyDown(_SearchedKey))
-        {
-            if (!clockisTicking && counter == 3)
-            {
-                information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
-                background.color = green;
-                timerstopable = false;
-                SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
-                //TODO:Speichern des Averages
-            }
-            
-            else if (clockisTicking && timerstopable)
-            {
-                StopCoroutine("StartDelay");
-                counter++;
-                Debug.Log(counter);
-                reactionTime = Time.time - startTime;
-                reactionTimeAverage.Add(reactionTime);
-                if (counter == 3)
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + "sec\n Press to see Average";
-                }
-                else
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n Press " + _StarterButtonName + "to start again";
-                }
-                clockisTicking = false;
-            }
-            else if (clockisTicking && !timerstopable)
-            {
-                StopCoroutine("StartDelay");
-                reactionTime = 0f;
-                clockisTicking = false;
-                timerstopable = false;
-                information.text = "Too soon!!\n Press " + _StarterButtonName + "to start again";
-            }
-        }
-
     }
 
 

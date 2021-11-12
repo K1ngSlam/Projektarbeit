@@ -12,6 +12,7 @@ public class ControllerKeyboardSecnondLevel : SecondSuper
         codes.Add(KeyCode.W);
         codes.Add(KeyCode.S);
         codes.Add(KeyCode.D);
+        codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 2 Start");
         Starter("Space", KeyCode.Space, codes);
     }
