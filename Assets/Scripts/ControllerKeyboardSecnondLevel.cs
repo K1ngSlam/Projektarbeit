@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerKeyboardSecnondLevel : SecondSuper
+public class ControllerKeyboardSecnondLevel : SuperController
 {
     // Start is called before the first frame update
     void Start()
@@ -14,12 +14,12 @@ public class ControllerKeyboardSecnondLevel : SecondSuper
         codes.Add(KeyCode.D);
         codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 2 Start");
-        Starter("Space", KeyCode.Space, codes);
+        Starter(KeyCode.Space, codes);
     }
 
     void Update()
     {
-        Debug.Log("Keyboard Update");
+      //f  Debug.Log("Keyboard Update");
         Updater();
     }
 }
