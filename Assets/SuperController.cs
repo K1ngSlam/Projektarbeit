@@ -56,12 +56,12 @@ public class SuperController : MonoBehaviour
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
                 if (PlayerPrefs.GetFloat("HighScore") < reactionTimeAverage.Average())
                 {
                     PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
                     PlayerPrefs.SetString("HighScoreInput", _inputDevice);
                 }
+                SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
             }
             else if (!clockisTicking)
             {
@@ -94,10 +94,11 @@ public class SuperController : MonoBehaviour
                 reactionTime = 0f;
                 clockisTicking = false;
                 timerstopable = false;
-                information.text = "Too soon!!\n Press " + _ButtonName +  "to start again";
+                information.text = "Too soon!!\n Press " + _ButtonName + "to start again";
             }
+            
         }
-
+        
     }
 
     protected IEnumerator StartDelay()
@@ -109,4 +110,5 @@ public class SuperController : MonoBehaviour
         clockisTicking = true;
         timerstopable = true;
     }
+
 }
