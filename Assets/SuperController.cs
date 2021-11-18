@@ -12,6 +12,8 @@ public class SuperController : MonoBehaviour
     [SerializeField]
     protected Text information;
 
+    protected string _inputDevice;
+
     protected Color red;
     protected Color green;
 
@@ -24,7 +26,7 @@ public class SuperController : MonoBehaviour
     protected string _ButtonName;
     protected KeyCode _usedKey;
 
-    protected void Starter(string ButtonName, KeyCode key)
+    protected void Starter(string ButtonName, KeyCode key, string inputDevice)
     {
         _usedKey = key;
         if (!ButtonName.Equals(""))
@@ -42,6 +44,7 @@ public class SuperController : MonoBehaviour
         timerstopable = false;
         reactionTimeAverage = new List<float>();
         counter = 0;
+        _inputDevice = inputDevice;
     }
 
     protected void Updater()
@@ -54,7 +57,11 @@ public class SuperController : MonoBehaviour
                 background.color = green;
                 timerstopable = false;
                 SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
-                //TODO:Speichern des Averages
+                if (PlayerPrefs.GetFloat("HighScore") < reactionTimeAverage.Average())
+                {
+                    PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
+                    PlayerPrefs.SetString("HighScoreInput", _inputDevice);
+                }
             }
             else if (!clockisTicking)
             {

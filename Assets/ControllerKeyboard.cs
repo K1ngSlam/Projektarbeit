@@ -8,7 +8,7 @@ public class ControllerKeyboard : SuperController
     void Start()
     {
         Debug.Log("Keyboard Start");
-        Starter("Space", KeyCode.Space);
+        Starter("Space", KeyCode.Space, "Keyboard");
     }
 
     void Update()

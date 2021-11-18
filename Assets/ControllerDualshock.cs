@@ -22,7 +22,7 @@ public class ControllerDualshock : SuperController
     void Start()
     {
         Debug.Log("Dualshock Start");
-        Starter("X", KeyCode.Joystick1Button1);
+        Starter("X", KeyCode.Joystick1Button1,"Controller");
     }
 
     void Update()
