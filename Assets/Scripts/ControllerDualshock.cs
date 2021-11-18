@@ -5,15 +5,13 @@ using UnityEngine.UI;
 using System.Linq;
 public class ControllerDualshock : SuperController
 {
-   
-
     void Start()
     {
         Debug.Log("Dualshock Start");
-        Starter(KeyCode.Joystick1Button1);
+        Starter(KeyCode.Joystick1Button1,"Controller");
     }
 
-    void Update()
+    void Update() //TODO:Updater Method nur bei InputEvent aufrufen
     {
         Debug.Log("Dualshock Update");
         Updater();

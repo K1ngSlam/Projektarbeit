@@ -36,6 +36,7 @@ public class SuperController : MonoBehaviour
         }
         _StartKey = key;
         _SearchedKey = key;
+        _inputDevice = inputDevice;
         Starter();
     }
     protected void Starter(KeyCode key, List<KeyCode> codes)
@@ -66,7 +67,6 @@ public class SuperController : MonoBehaviour
         timerstopable = false;
         reactionTimeAverage = new List<float>();
         counter = 0;
-        _inputDevice = inputDevice;
     }
 
     protected void Updater()
@@ -134,7 +134,7 @@ public class SuperController : MonoBehaviour
                 reactionTime = 0f;
                 clockisTicking = false;
                 timerstopable = false;
-                information.text = "Too soon!!\n Press " + _ButtonName + "to start again";
+                information.text = "Too soon!!\n " + getButtonName() + "to start again";
             }
             
         }
@@ -145,7 +145,7 @@ public class SuperController : MonoBehaviour
     {
         if (_SearchedKey.ToString().Equals("Mouse0"))
         {
-            return "Klick";
+            return "Click";
         }
         if (_SearchedKey == KeyCode.Joystick1Button1)
         {
