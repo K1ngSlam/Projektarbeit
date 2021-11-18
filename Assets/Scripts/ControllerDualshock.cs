@@ -9,11 +9,16 @@ public class ControllerDualshock : SuperController
     {
         Debug.Log("Dualshock Start");
         Starter(KeyCode.Joystick1Button1,"Controller");
+        nextButtonPressEnabled = true;
     }
 
-    void Update() //TODO:Updater Method nur bei InputEvent aufrufen
+    void Update() 
     {
         Debug.Log("Dualshock Update");
-        Updater();
+        if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        {
+            Updater();
+            StartCoroutine("DelayNextInput");
+        }
     }
 }

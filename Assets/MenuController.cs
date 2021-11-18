@@ -30,4 +30,10 @@ public class MenuController : MonoBehaviour
         //TODO:Check for Input avaiable
         SceneManager.LoadScene("DualshockScene");
     }
+    public void ResetHighScore()
+    {
+        PlayerPrefs.DeleteAll();
+        highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
+        highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
+    }
 }

@@ -9,11 +9,15 @@ public class ControllerKeyboard : SuperController
     {
         Debug.Log("Keyboard Start");
         Starter(KeyCode.Space, "Keyboard");
+        nextButtonPressEnabled = true;
     }
 
     void Update()
     {
-      //3  Debug.Log("Keyboard Update");
-        Updater();
-    }
+        if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        {
+            Updater();
+            StartCoroutine("DelayNextInput");
+        }
+    }   
 }

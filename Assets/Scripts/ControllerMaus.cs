@@ -11,11 +11,16 @@ public class ControllerMaus : SuperController
     {
         Debug.Log("Maus Start");
         Starter(KeyCode.Mouse0, "Mouse");
+        nextButtonPressEnabled = true;
     }
 
     void Update()
     {
         Debug.Log("Maus Update");
-        Updater();
+        if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        {
+            Updater();
+            StartCoroutine("DelayNextInput");
+        }
     }
 }

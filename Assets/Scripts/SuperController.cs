@@ -18,7 +18,7 @@ public class SuperController : MonoBehaviour
     protected Color green;
 
     protected float reactionTime, randomDelay, startTime;
-    protected bool clockisTicking, timerstopable;
+    protected bool clockisTicking, timerstopable, nextButtonPressEnabled;
 
     protected List<float> reactionTimeAverage;
     protected short counter;
@@ -71,7 +71,8 @@ public class SuperController : MonoBehaviour
 
     protected void Updater()
     {
-        if (Input.anyKeyDown && clockisTicking && !timerstopable)
+        Debug.Log("SuperController Updater Method");
+        if (clockisTicking && !timerstopable)
         {
             StopCoroutine("StartDelay");
             reactionTime = 0f;
@@ -79,6 +80,7 @@ public class SuperController : MonoBehaviour
             clockisTicking = false;
             timerstopable = false;
             information.text = "Too soon!!\n" + getButtonName() + " to start again";
+            nextButtonPressEnabled = false;
         }
         else if (Input.GetKeyDown(_SearchedKey))
         {
@@ -87,12 +89,13 @@ public class SuperController : MonoBehaviour
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                if (PlayerPrefs.GetFloat("HighScore") < reactionTimeAverage.Average())
+                if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
                 {
                     PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
                     PlayerPrefs.SetString("HighScoreInput", _inputDevice);
                 }
                 SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
+                nextButtonPressEnabled = false;
             }
             else if (!clockisTicking)
             {
@@ -127,20 +130,26 @@ public class SuperController : MonoBehaviour
                     information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n" + getButtonName() + " to start again";
                 }
                 clockisTicking = false;
+                nextButtonPressEnabled = false;
             }
-            else if (clockisTicking && !timerstopable)
-            {
-                StopCoroutine("StartDelay");
-                reactionTime = 0f;
-                clockisTicking = false;
-                timerstopable = false;
-                information.text = "Too soon!!\n " + getButtonName() + "to start again";
-            }
-            
         }
         
     }
-
+    protected IEnumerator StartDelay()
+    {
+        randomDelay = Random.Range(0.5f, 5f);
+        yield return new WaitForSeconds(randomDelay);
+        background.color = green;
+        information.text = getButtonName() + "!";
+        startTime = Time.time;
+        clockisTicking = true;
+        timerstopable = true;
+    }
+    protected IEnumerator DelayNextInput()
+    {
+        yield return new WaitForSeconds(0.5f);
+        nextButtonPressEnabled = true;
+    }
     private string getButtonName()
     {
         if (_SearchedKey.ToString().Equals("Mouse0"))
@@ -155,15 +164,6 @@ public class SuperController : MonoBehaviour
     }
 
 
-    protected IEnumerator StartDelay()
-    {
-        randomDelay = Random.Range(0.5f, 5f);
-        yield return new WaitForSeconds(randomDelay);
-        background.color = green;
-        information.text = getButtonName() + "!";
-        startTime = Time.time;
-        clockisTicking = true;
-        timerstopable = true;
-    }
+    
 }
 
