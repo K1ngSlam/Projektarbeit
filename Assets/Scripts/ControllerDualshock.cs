@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-public class ControllerKeyboard : SuperController
+public class ControllerDualshock : SuperController
 {
+   
+
     void Start()
     {
-        Debug.Log("Keyboard Start");
-        Starter("Space", KeyCode.Space, "Keyboard");
+        Debug.Log("Dualshock Start");
+        Starter(KeyCode.Joystick1Button1);
     }
 
     void Update()
     {
-        Debug.Log("Keyboard Update");
+        Debug.Log("Dualshock Update");
         Updater();
     }
 }

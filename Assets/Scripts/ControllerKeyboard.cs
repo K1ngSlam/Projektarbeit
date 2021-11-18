@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-
-public class ControllerMaus : SuperController
-{ 
-   
+public class ControllerKeyboard : SuperController
+{
     void Start()
     {
-        Debug.Log("Maus Start");
-        Starter("", KeyCode.Mouse0, "Mouse");
+        Debug.Log("Keyboard Start");
+        Starter(KeyCode.Space, "Keyboard");
     }
 
     void Update()
     {
-        Debug.Log("Maus Update");
+      //3  Debug.Log("Keyboard Update");
         Updater();
     }
 }
