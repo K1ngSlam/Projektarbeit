@@ -39,6 +39,8 @@ public class SuperController : MonoBehaviour
         _inputDevice = inputDevice;
         Starter();
     }
+
+    //TODO: Refactor to if possible remove overloading
     protected void Starter(KeyCode key, List<KeyCode> codes)
     {
         _key_codes = codes;

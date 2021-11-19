@@ -15,11 +15,17 @@ public class ControllerKeyboardSecondLevel : SuperController
         codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 2 Start");
         Starter(KeyCode.Space, codes);
+        nextButtonPressEnabled = true;
+
     }
 
     void Update()
     {
-      //f  Debug.Log("Keyboard Update");
-        Updater();
+        //f  Debug.Log("Keyboard Update");
+        if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        {
+            Updater();
+            StartCoroutine("DelayNextInput");
+        }
     }
 }
