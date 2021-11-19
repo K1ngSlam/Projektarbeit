@@ -89,38 +89,11 @@ public class SuperController : MonoBehaviour
 
     protected void Updater()
     {
-        float xaxis = Input.GetAxis("DpadX");
-        float yaxis = Input.GetAxis("DpadY");
         float AxisValue = 0;
         Debug.Log("before switch");
-
-        switch(_SearchedAxisName)
+        if (_SearchedAxisName != "")
         {
-            case "DpadX":
-                switch(xaxis)
-                {
-                    case -1:
-                        AxisValue = -1;
-                        break;
-
-                    case 1:
-                        AxisValue = 1;
-                        break;
-                }
-                break;
-
-            case "DpadY":
-                switch(yaxis)
-                {
-                    case -1:
-                        AxisValue = -1;
-                        break;
-
-                    case 1:
-                        AxisValue = 1;
-                        break;
-                }
-                break;
+            AxisValue = Input.GetAxis(_SearchedAxisName);
         }
         Debug.Log("AfterSwitch");
 
@@ -166,8 +139,6 @@ public class SuperController : MonoBehaviour
                  */
                 if(Random.Range(0, _has_No_Axis_Flag) == 0)
                 {
-                    Debug.Log("Ifture");
-
                     _SearchedAxisName = "";
                     Debug.Log(_key_codes.Count);
                     int random_key_index = Random.Range(0, _key_codes.Count);
@@ -175,10 +146,8 @@ public class SuperController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("ifFalse");
-
                     _SearchedKey = KeyCode.None;
-                    int random_Axis_Name = Random.Range(0, 2);
+                    int random_Axis_Name = Random.Range(0, _axis_codes.Count);
                     int random_Axis_Value = Random.Range(0, 2);
                     _SearchedAxisName = _axis_codes[random_Axis_Name];
                     if(random_Axis_Value == 1)
@@ -216,70 +185,6 @@ public class SuperController : MonoBehaviour
                 nextButtonPressEnabled = false;
             }
         }
-
-
-        /*        Debug.Log("SuperController Updater Method");
-                if (clockisTicking && !timerstopable)
-                {
-                    StopCoroutine("StartDelay");
-                    reactionTime = 0f;
-                    _SearchedKey = _StartKey;
-                    clockisTicking = false;
-                    timerstopable = false;
-                    information.text = "Too soon!!\n" + getButtonName() + " to start again";
-                    nextButtonPressEnabled = false;
-                }
-                else if (Input.GetKeyDown(_SearchedKey))
-                {
-                    if (!clockisTicking && counter == 3)
-                    {
-                        information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
-                        background.color = green;
-                        timerstopable = false;
-                        if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
-                        {
-                            PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
-                            PlayerPrefs.SetString("HighScoreInput", _inputDevice);
-                        }
-                        SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
-                        nextButtonPressEnabled = false;
-                    }
-                    else if (!clockisTicking)
-                    {
-                        /* I could move this section into its own method, and make two versions of the method to make sure that
-                         * the randomizer isn't called when there's only one Key in the _key_codes list. However, the call of random
-                         * and new asignement of _SearchedKey should not cost enough processing power to make that change worth the effort,
-                         * especially since the time saved there would likely be consumed by the neccessary if-clause 
-                         * used to determine the right method to call.
-                         *
-        int random_key_index = Random.Range(0, _key_codes.Count);
-                _SearchedKey = _key_codes[random_key_index];
-                StartCoroutine("StartDelay");
-                information.text = "Wait for Green!";
-                background.color = red;
-                clockisTicking = true;
-                timerstopable = false;
-            }
-            else if (clockisTicking && timerstopable)
-            {
-                StopCoroutine("StartDelay");
-                _SearchedKey = _StartKey;
-                counter++;
-                // Debug.Log(counter);
-                reactionTime = Time.time - startTime;
-                reactionTimeAverage.Add(reactionTime);
-                if (counter == 3)
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + "sec\n" + getButtonName() + " to see Average";
-                }
-                else
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n" + getButtonName() + " to start again";
-                }
-                clockisTicking = false;
-                nextButtonPressEnabled = false;
-            }
-        }*/
     }
 
     protected IEnumerator StartDelay()
@@ -302,7 +207,6 @@ public class SuperController : MonoBehaviour
     private string getButtonName()
     {
         //ToDo: switchcase through Device Type or class name
-
         switch(_SearchedKey)
         {
             case KeyCode.Mouse0:
@@ -323,28 +227,73 @@ public class SuperController : MonoBehaviour
                 return "Press O";
             case KeyCode.Joystick1Button3:
                 return "Press Tirangle";
+            case KeyCode.Joystick1Button4:
+                return "Press L1";
+            case KeyCode.Joystick1Button5:
+                return "Press R1";
+            case KeyCode.Joystick1Button6:
+                return "Press L2";
+            case KeyCode.Joystick1Button7:
+                return "Press R2";
             case KeyCode.None:
-                if(_SearchedAxisName == "DpadX")
+                switch(_SearchedAxisName)
                 {
-                    if(_SearchedAxisValue == 1)
-                    {
-                        return "Press Right";
-                    }
-                    else
-                    {
-                        return "Press Left";
-                    }
-                }
-                else
-                {
-                    if(_SearchedAxisValue == 1)
-                    {
-                        return "Press Up";
-                    }
-                    else
-                    {
-                        return "Press Down";
-                    }
+                    case "DpadX":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Right";
+                        }
+                        else
+                        {
+                            return "Press Left";
+                        }
+                    case "DpadY":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Up";
+                        }
+                        else
+                        {
+                            return "Press Down";
+                        }
+                    case "Horizontal":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Left Stick Right";
+                        }
+                        else
+                        {
+                            return "Left Stick Left";
+                        }
+                    case "Vertical":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Left Stick Up";
+                        }
+                        else
+                        {
+                            return "Left Stick Down";
+                        }
+                    case "RightStickX":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Right Stick Right";
+                        }
+                        else
+                        {
+                            return "Right Stick Left";
+                        }
+                    case "RightStickY":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Right Stick Up";
+                        }
+                        else
+                        {
+                            return "Right Stick Down";
+                        }
+                    default:
+                        return "Fehler";
                 }
             default:
                 return "Press " + _SearchedKey.ToString();

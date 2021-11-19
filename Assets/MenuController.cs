@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
     public void LoadSceneController()
     {
         //TODO:Check for Input avaiable
-        SceneManager.LoadScene("DualshockScene");
+        SceneManager.LoadScene("DualshockFirstLevelScene");
     }
     public void ResetHighScore()
     {

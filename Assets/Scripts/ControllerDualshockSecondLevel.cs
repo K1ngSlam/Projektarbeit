@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerDualschockSecondLevel : SuperController
+public class ControllerDualshockSecondLevel : SuperController
 {
     float Axis_DpadX, Axis_DpadY;
     // Start is called before the first frame update
@@ -27,12 +27,16 @@ public class ControllerDualschockSecondLevel : SuperController
     }
     void Update()
     {
-        float xaxis = Input.GetAxis("DpadX");
-        float yaxis = Input.GetAxis("DpadY");
+        float AxisValue = 0;
+
+        if(_SearchedAxisName != "")
+        {
+            AxisValue = Input.GetAxis(this._SearchedAxisName);
+        }
 
         //f  Debug.Log("Keyboard Update");
         //
-        if ((Input.anyKeyDown || xaxis * xaxis == 1 || yaxis * yaxis == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");
