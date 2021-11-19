@@ -41,10 +41,11 @@ public class SuperController : MonoBehaviour
     }
 
     //TODO: Refactor to if possible remove overloading
-    protected void Starter(KeyCode key, List<KeyCode> codes)
+    protected void Starter(KeyCode key, List<KeyCode> codes, string inputDevice)
     {
         _key_codes = codes;
         Starter(key);
+        _inputDevice = inputDevice;
     }
     protected void Starter(KeyCode key)
     {
@@ -135,8 +136,8 @@ public class SuperController : MonoBehaviour
                 nextButtonPressEnabled = false;
             }
         }
-        
     }
+
     protected IEnumerator StartDelay()
     {
         randomDelay = Random.Range(0.5f, 5f);
@@ -147,16 +148,36 @@ public class SuperController : MonoBehaviour
         clockisTicking = true;
         timerstopable = true;
     }
+
     protected IEnumerator DelayNextInput()
     {
         yield return new WaitForSeconds(0.5f);
         nextButtonPressEnabled = true;
     }
+
     private string getButtonName()
     {
-        if (_SearchedKey.ToString().Equals("Mouse0"))
+        //ToDo: switchcase through Device Type or class name
+        if (_SearchedKey == KeyCode.Mouse0)
         {
             return "Click";
+        }
+     
+        if (_SearchedKey == KeyCode.UpArrow)
+        {
+            return "Press Up Arrow";
+        }
+        if (_SearchedKey == KeyCode.DownArrow)
+        {
+            return "Press Down Arrow";
+        }
+        if (_SearchedKey == KeyCode.LeftArrow)
+        {
+            return "Press Left Arrow";
+        }
+        if (_SearchedKey == KeyCode.RightArrow)
+        {
+            return "Press Right Arrow";
         }
         if (_SearchedKey == KeyCode.Joystick1Button1)
         {
@@ -164,8 +185,4 @@ public class SuperController : MonoBehaviour
         }
         return "Press " + _SearchedKey.ToString();
     }
-
-
-    
 }
-
