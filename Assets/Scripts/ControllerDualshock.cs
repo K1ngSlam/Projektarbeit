@@ -14,7 +14,7 @@ public class ControllerDualshock : SuperController
 
     void Update() 
     {
-        Debug.Log("Dualshock Update");
+        //Debug.Log("Dualshock Update");
         if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();

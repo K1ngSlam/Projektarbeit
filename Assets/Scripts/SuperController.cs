@@ -18,19 +18,24 @@ public class SuperController : MonoBehaviour
     protected Color green;
 
     protected float reactionTime, randomDelay, startTime;
-    protected bool clockisTicking, timerstopable, nextButtonPressEnabled;
+    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput;
 
     protected List<float> reactionTimeAverage;
     protected short counter;
 
     protected KeyCode _StartKey;
     protected KeyCode _SearchedKey;
+    protected string _SearchedAxisName = "";
+    protected float _SearchedAxisValue = 5; //auﬂerhalb der Axis range damit neutral nicht als richtig gewertet wird
     protected List<KeyCode> _key_codes = new List<KeyCode>();
+    protected List<string> _axis_codes = new List<string>();
+    protected int _has_No_Axis_Flag = 1;
+
 
 
     protected void Starter(KeyCode key, string inputDevice)
     {
-        if (_key_codes.Count == 0)
+        if(_key_codes.Count == 0)
         {
             _key_codes.Add(key);
         }
@@ -41,6 +46,16 @@ public class SuperController : MonoBehaviour
     }
 
     //TODO: Refactor to if possible remove overloading
+
+    protected void Starter(KeyCode key, List<KeyCode> codes, string inputDevice, List<string> axis)
+    {
+        _key_codes = codes;
+        _axis_codes = axis;
+        _has_No_Axis_Flag = 2;
+        Starter(key);
+        _inputDevice = inputDevice;
+    }
+
     protected void Starter(KeyCode key, List<KeyCode> codes, string inputDevice)
     {
         _key_codes = codes;
@@ -49,7 +64,7 @@ public class SuperController : MonoBehaviour
     }
     protected void Starter(KeyCode key)
     {
-        if (_key_codes.Count == 0)
+        if(_key_codes.Count == 0)
         {
             _key_codes.Add(key);
         }
@@ -74,8 +89,49 @@ public class SuperController : MonoBehaviour
 
     protected void Updater()
     {
+        float xaxis = Input.GetAxis("DpadX");
+        float yaxis = Input.GetAxis("DpadY");
+        float AxisValue = 0;
+        Debug.Log("before switch");
+
+        switch(_SearchedAxisName)
+        {
+            case "DpadX":
+                switch(xaxis)
+                {
+                    case -1:
+                        AxisValue = -1;
+                        break;
+
+                    case 1:
+                        AxisValue = 1;
+                        break;
+                }
+                break;
+
+            case "DpadY":
+                switch(yaxis)
+                {
+                    case -1:
+                        AxisValue = -1;
+                        break;
+
+                    case 1:
+                        AxisValue = 1;
+                        break;
+                }
+                break;
+        }
+        Debug.Log("AfterSwitch");
+
+        rightInput = false;
+        if(Input.GetKeyDown(_SearchedKey) || _SearchedAxisValue == AxisValue)
+        {
+            rightInput = true;
+        }
+
         Debug.Log("SuperController Updater Method");
-        if (clockisTicking && !timerstopable)
+        if(clockisTicking && !timerstopable)
         {
             StopCoroutine("StartDelay");
             reactionTime = 0f;
@@ -85,14 +141,14 @@ public class SuperController : MonoBehaviour
             information.text = "Too soon!!\n" + getButtonName() + " to start again";
             nextButtonPressEnabled = false;
         }
-        else if (Input.GetKeyDown(_SearchedKey))
+        else if(rightInput)
         {
-            if (!clockisTicking && counter == 3)
+            if(!clockisTicking && counter == 3)
             {
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
+                if(PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
                 {
                     PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
                     PlayerPrefs.SetString("HighScoreInput", _inputDevice);
@@ -100,7 +156,7 @@ public class SuperController : MonoBehaviour
                 SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
                 nextButtonPressEnabled = false;
             }
-            else if (!clockisTicking)
+            else if(!clockisTicking)
             {
                 /* I could move this section into its own method, and make two versions of the method to make sure that
                  * the randomizer isn't called when there's only one Key in the _key_codes list. However, the call of random
@@ -108,7 +164,95 @@ public class SuperController : MonoBehaviour
                  * especially since the time saved there would likely be consumed by the neccessary if-clause 
                  * used to determine the right method to call.
                  */
-                int random_key_index = Random.Range(0, _key_codes.Count);
+                if(Random.Range(0, _has_No_Axis_Flag) == 0)
+                {
+                    Debug.Log("Ifture");
+
+                    _SearchedAxisName = "";
+                    Debug.Log(_key_codes.Count);
+                    int random_key_index = Random.Range(0, _key_codes.Count);
+                    _SearchedKey = _key_codes[random_key_index];
+                }
+                else
+                {
+                    Debug.Log("ifFalse");
+
+                    _SearchedKey = KeyCode.None;
+                    int random_Axis_Name = Random.Range(0, 2);
+                    int random_Axis_Value = Random.Range(0, 2);
+                    _SearchedAxisName = _axis_codes[random_Axis_Name];
+                    if(random_Axis_Value == 1)
+                    {
+                        _SearchedAxisValue = 1;
+                    }
+                    else
+                    {
+                        _SearchedAxisValue = -1;
+                    }
+                }
+                StartCoroutine("StartDelay");
+                information.text = "Wait for Green!";
+                background.color = red;
+                clockisTicking = true;
+                timerstopable = false;
+            }
+            else if(clockisTicking && timerstopable)
+            {
+                StopCoroutine("StartDelay");
+                _SearchedKey = _StartKey;
+                counter++;
+                // Debug.Log(counter);
+                reactionTime = Time.time - startTime;
+                reactionTimeAverage.Add(reactionTime);
+                if(counter == 3)
+                {
+                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + "sec\n" + getButtonName() + " to see Average";
+                }
+                else
+                {
+                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n" + getButtonName() + " to start again";
+                }
+                clockisTicking = false;
+                nextButtonPressEnabled = false;
+            }
+        }
+
+
+        /*        Debug.Log("SuperController Updater Method");
+                if (clockisTicking && !timerstopable)
+                {
+                    StopCoroutine("StartDelay");
+                    reactionTime = 0f;
+                    _SearchedKey = _StartKey;
+                    clockisTicking = false;
+                    timerstopable = false;
+                    information.text = "Too soon!!\n" + getButtonName() + " to start again";
+                    nextButtonPressEnabled = false;
+                }
+                else if (Input.GetKeyDown(_SearchedKey))
+                {
+                    if (!clockisTicking && counter == 3)
+                    {
+                        information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
+                        background.color = green;
+                        timerstopable = false;
+                        if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
+                        {
+                            PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
+                            PlayerPrefs.SetString("HighScoreInput", _inputDevice);
+                        }
+                        SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
+                        nextButtonPressEnabled = false;
+                    }
+                    else if (!clockisTicking)
+                    {
+                        /* I could move this section into its own method, and make two versions of the method to make sure that
+                         * the randomizer isn't called when there's only one Key in the _key_codes list. However, the call of random
+                         * and new asignement of _SearchedKey should not cost enough processing power to make that change worth the effort,
+                         * especially since the time saved there would likely be consumed by the neccessary if-clause 
+                         * used to determine the right method to call.
+                         *
+        int random_key_index = Random.Range(0, _key_codes.Count);
                 _SearchedKey = _key_codes[random_key_index];
                 StartCoroutine("StartDelay");
                 information.text = "Wait for Green!";
@@ -135,7 +279,7 @@ public class SuperController : MonoBehaviour
                 clockisTicking = false;
                 nextButtonPressEnabled = false;
             }
-        }
+        }*/
     }
 
     protected IEnumerator StartDelay()
@@ -158,31 +302,52 @@ public class SuperController : MonoBehaviour
     private string getButtonName()
     {
         //ToDo: switchcase through Device Type or class name
-        if (_SearchedKey == KeyCode.Mouse0)
+
+        switch(_SearchedKey)
         {
-            return "Click";
+            case KeyCode.Mouse0:
+                return "Click";
+            case KeyCode.UpArrow:
+                return "Press Up Arrow";
+            case KeyCode.DownArrow:
+                return "Press Down Arrow";
+            case KeyCode.LeftArrow:
+                return "Press Left Arrow";
+            case KeyCode.RightArrow:
+                return "Press Right Arrow";
+            case KeyCode.Joystick1Button1:
+                return "Press X";
+            case KeyCode.Joystick1Button0:
+                return "Press Square";
+            case KeyCode.Joystick1Button2:
+                return "Press O";
+            case KeyCode.Joystick1Button3:
+                return "Press Tirangle";
+            case KeyCode.None:
+                if(_SearchedAxisName == "DpadX")
+                {
+                    if(_SearchedAxisValue == 1)
+                    {
+                        return "Press Right";
+                    }
+                    else
+                    {
+                        return "Press Left";
+                    }
+                }
+                else
+                {
+                    if(_SearchedAxisValue == 1)
+                    {
+                        return "Press Up";
+                    }
+                    else
+                    {
+                        return "Press Down";
+                    }
+                }
+            default:
+                return "Press " + _SearchedKey.ToString();
         }
-     
-        if (_SearchedKey == KeyCode.UpArrow)
-        {
-            return "Press Up Arrow";
-        }
-        if (_SearchedKey == KeyCode.DownArrow)
-        {
-            return "Press Down Arrow";
-        }
-        if (_SearchedKey == KeyCode.LeftArrow)
-        {
-            return "Press Left Arrow";
-        }
-        if (_SearchedKey == KeyCode.RightArrow)
-        {
-            return "Press Right Arrow";
-        }
-        if (_SearchedKey == KeyCode.Joystick1Button1)
-        {
-            return "Press X";
-        }
-        return "Press " + _SearchedKey.ToString();
     }
 }
