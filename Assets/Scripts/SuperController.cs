@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
-using UnityEngine.SceneManagement;
 
 public class SuperController : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class SuperController : MonoBehaviour
     protected Color green;
 
     protected float reactionTime, randomDelay, startTime;
-    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput;
+    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput, Isdone;
 
     protected List<float> reactionTimeAverage;
     protected short counter;
@@ -85,6 +84,7 @@ public class SuperController : MonoBehaviour
         timerstopable = false;
         reactionTimeAverage = new List<float>();
         counter = 0;
+        Isdone = false;
     }
 
     protected void Updater()
@@ -121,15 +121,15 @@ public class SuperController : MonoBehaviour
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                if(PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
+                if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
                 {
                     PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
                     PlayerPrefs.SetString("HighScoreInput", _inputDevice);
                 }
-                SceneManager.LoadScene("Main Menu"); //Zu ladende Scene einfach hier rein
                 nextButtonPressEnabled = false;
+                Isdone = true;
             }
-            else if(!clockisTicking)
+            else if (!clockisTicking)
             {
                 /* I could move this section into its own method, and make two versions of the method to make sure that
                  * the randomizer isn't called when there's only one Key in the _key_codes list. However, the call of random

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.SceneManagement;
 public class ControllerDualshock : SuperController
 {
     void Start()
@@ -14,8 +15,11 @@ public class ControllerDualshock : SuperController
 
     void Update() 
     {
-        //Debug.Log("Dualshock Update");
-        if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");

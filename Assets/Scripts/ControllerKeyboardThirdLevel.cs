@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerKeyboardThirdLevel : SuperController
 {
@@ -24,8 +25,11 @@ public class ControllerKeyboardThirdLevel : SuperController
 
     void Update()
     {
-        //f  Debug.Log("Keyboard Update");
-        if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");

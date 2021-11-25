@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerDualshockSecondLevel : SuperController
 {
@@ -36,6 +37,10 @@ public class ControllerDualshockSecondLevel : SuperController
 
         //f  Debug.Log("Keyboard Update");
         //
+        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
         if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();

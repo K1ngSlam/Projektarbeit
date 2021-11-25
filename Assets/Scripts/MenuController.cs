@@ -20,15 +20,41 @@ public class MenuController : MonoBehaviour
         //TODO:Check for Input avaiable
         SceneManager.LoadScene("MausScene");
     }
-    public void LoadSceneKeyboard()
+    public void LoadSceneKeyboard(int level)
     {
         //TODO:Check for Input avaiable
-        SceneManager.LoadScene("KeyboardScene");
+        switch(level)
+        {
+            case 1:
+                SceneManager.LoadScene("KeyboardScene");
+                break;
+
+            case 2:
+                SceneManager.LoadScene("KeyboardSecondLevel");
+                break;
+
+            case 3:
+                SceneManager.LoadScene("KeyboardThirdLevel");
+                break;
+        }       
     }
-    public void LoadSceneController()
+    public void LoadSceneController(int level)
     {
         //TODO:Check for Input avaiable
-        SceneManager.LoadScene("DualshockFirstLevelScene");
+        switch (level)
+        {
+            case 1:
+                SceneManager.LoadScene("DualshockFirstLevelScene");
+                break;
+
+            case 2:
+                SceneManager.LoadScene("DualshockSecondLevelScene");
+                break;
+
+            case 3:
+                SceneManager.LoadScene("DualshockThirdLevelScene");
+                break;
+        }
     }
     public void ResetHighScore()
     {

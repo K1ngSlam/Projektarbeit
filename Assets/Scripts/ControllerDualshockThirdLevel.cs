@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerDualshockThirdLevel : SuperController
 {
@@ -35,7 +36,11 @@ public class ControllerDualshockThirdLevel : SuperController
 
         //f  Debug.Log("Keyboard Update");
         //Currently Problem: Only fires if the right axis is activated
-        if((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+        if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");
