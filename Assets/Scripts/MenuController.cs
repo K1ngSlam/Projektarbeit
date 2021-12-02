@@ -10,10 +10,16 @@ public class MenuController : MonoBehaviour
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
     public TextMeshProUGUI latestMouse1, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
+    public Button mouseTutorialButton, keyboardTutorialButton, dualshockTutorialButton;
     public void Start()
     {
         Debug.Log("Start Menue Scene");
-        latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") +"ms";
+
+        PlayerPrefs.SetInt("MouseTurorial", 0);
+        PlayerPrefs.SetInt("KeyboardTurorial", 0);
+        PlayerPrefs.SetInt("DualshokTurorial", 0);
+
+        latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") + "ms";
         latestKeyboard1.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard1", 0).ToString("N3") + "ms";
         latestKeyboard2.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard2", 0).ToString("N3") + "ms";
         latestKeyboard3.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard3", 0).ToString("N3") + "ms";
@@ -44,12 +50,12 @@ public class MenuController : MonoBehaviour
             case 3:
                 SceneManager.LoadScene("KeyboardThirdLevel");
                 break;
-        }       
+        }
     }
     public void LoadSceneController(int level)
     {
         //TODO:Check for Input avaiable
-        switch (level)
+        switch(level)
         {
             case 1:
                 SceneManager.LoadScene("DualshockFirstLevelScene");
@@ -69,5 +75,33 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.DeleteAll();
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
+    }
+    public void MouseMenu()
+    {
+        if(PlayerPrefs.GetInt("MouseTurorial") == 0)
+        {
+            PlayerPrefs.SetInt("MouseTurorial", 1);
+            mouseTutorialButton.onClick.Invoke();
+        }
+
+    }
+    public void KeyboardMenu()
+    {
+        if(PlayerPrefs.GetInt("KeyboardTurorial") == 0)
+        {
+            PlayerPrefs.SetInt("KeyboardTurorial", 1);
+            Debug.Log("keyboardmenu");
+            keyboardTutorialButton.onClick.Invoke();
+        }
+
+    }
+    public void DualshockMenu()
+    {
+        if(PlayerPrefs.GetInt("DualshokTurorial") == 0)
+        {
+            PlayerPrefs.SetInt("DualshokTurorial", 1);
+            dualshockTutorialButton.onClick.Invoke();
+        }
+
     }
 }
