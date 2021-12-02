@@ -284,7 +284,7 @@ public class SuperController : MonoBehaviour
                             return "Right Stick Left";
                         }
                     case "RightStickY":
-                        if(_SearchedAxisValue == 1)
+                        if(_SearchedAxisValue == -1)
                         {
                             return "Right Stick Up";
                         }
