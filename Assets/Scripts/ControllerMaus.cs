@@ -19,6 +19,7 @@ public class ControllerMaus : SuperController
     {
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestMouse1", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

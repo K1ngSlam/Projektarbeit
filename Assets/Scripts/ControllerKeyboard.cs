@@ -17,6 +17,7 @@ public class ControllerKeyboard : SuperController
     {
         if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestKeyboard1", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

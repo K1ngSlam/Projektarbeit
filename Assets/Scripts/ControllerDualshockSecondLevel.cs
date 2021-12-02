@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class ControllerDualshockSecondLevel : SuperController
@@ -39,6 +40,7 @@ public class ControllerDualshockSecondLevel : SuperController
         //
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestController2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class ControllerKeyboardThirdLevel : SuperController
@@ -27,6 +28,7 @@ public class ControllerKeyboardThirdLevel : SuperController
     {
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestKeyboard3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

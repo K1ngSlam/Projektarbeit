@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class ControllerKeyboardSecondLevel : SuperController
@@ -24,6 +25,7 @@ public class ControllerKeyboardSecondLevel : SuperController
     {
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestKeyboard2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

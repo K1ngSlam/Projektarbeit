@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class ControllerDualshockThirdLevel : SuperController
@@ -38,6 +39,7 @@ public class ControllerDualshockThirdLevel : SuperController
         //Currently Problem: Only fires if the right axis is activated
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
+            PlayerPrefs.SetFloat("LatestController3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys

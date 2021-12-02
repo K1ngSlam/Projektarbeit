@@ -9,9 +9,17 @@ public class MenuController : MonoBehaviour
 {
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
+    public TextMeshProUGUI latestMouse1, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
     public void Start()
     {
         Debug.Log("Start Menue Scene");
+        latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") +"ms";
+        latestKeyboard1.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard1", 0).ToString("N3") + "ms";
+        latestKeyboard2.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard2", 0).ToString("N3") + "ms";
+        latestKeyboard3.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard3", 0).ToString("N3") + "ms";
+        latestController1.text = "- " + PlayerPrefs.GetFloat("LatestController1", 0).ToString("N3") + "ms";
+        latestController2.text = "- " + PlayerPrefs.GetFloat("LatestController2", 0).ToString("N3") + "ms";
+        latestController3.text = "- " + PlayerPrefs.GetFloat("LatestController3", 0).ToString("N3") + "ms";
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
