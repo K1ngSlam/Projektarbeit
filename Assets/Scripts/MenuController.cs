@@ -101,8 +101,4 @@ public class MenuController : MonoBehaviour
             dualshockTutorialButton.onClick.Invoke();
         }
     }
-    public void KeyboardTutorialLvl1()
-    {
-        Spacebar.image.color = Color.green;
-    }
 }

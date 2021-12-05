@@ -5,13 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class KeyboardTurorialColorController : MonoBehaviour
+public class KeyboardTutorialController : MonoBehaviour
 {
     public Button keyboardTutorialButtonLevel1, keyboardTutorialButtonLevel2, keyboardTutorialButtonLevel3,
         Spacebar, WKeyButton, AKeyButton, DKeyButton, SKeyButton, LeftArrowButton, RightArrowButton, UpArrowButton, DownArrowButton;
     // Start is called before the first frame update
     void Start()
     {
+        keyboardTutorialButtonLevel1.image.color = Color.white;
+        keyboardTutorialButtonLevel2.image.color = Color.white;
+        keyboardTutorialButtonLevel3.image.color = Color.white;
         Spacebar.image.color = Color.white;
         WKeyButton.image.color = Color.white;
         AKeyButton.image.color = Color.white;
@@ -24,6 +27,9 @@ public class KeyboardTurorialColorController : MonoBehaviour
     }
     public void level1()
     {
+        keyboardTutorialButtonLevel1.image.color = Color.green;
+        keyboardTutorialButtonLevel2.image.color = Color.white;
+        keyboardTutorialButtonLevel3.image.color = Color.white;
         Spacebar.image.color = Color.green;
         WKeyButton.image.color = Color.white;
         AKeyButton.image.color = Color.white;
@@ -36,6 +42,9 @@ public class KeyboardTurorialColorController : MonoBehaviour
     }
     public void level2()
     {
+        keyboardTutorialButtonLevel1.image.color = Color.white;
+        keyboardTutorialButtonLevel2.image.color = Color.green;
+        keyboardTutorialButtonLevel3.image.color = Color.white;
         Spacebar.image.color = Color.green;
         WKeyButton.image.color = Color.green;
         AKeyButton.image.color = Color.green;
@@ -48,6 +57,9 @@ public class KeyboardTurorialColorController : MonoBehaviour
     }
     public void level3()
     {
+        keyboardTutorialButtonLevel1.image.color = Color.white;
+        keyboardTutorialButtonLevel2.image.color = Color.white;
+        keyboardTutorialButtonLevel3.image.color = Color.green;
         Spacebar.image.color = Color.green;
         WKeyButton.image.color = Color.green;
         AKeyButton.image.color = Color.green;
@@ -60,6 +72,9 @@ public class KeyboardTurorialColorController : MonoBehaviour
     }
     public void ReturnToLvlSelection()
     {
+        keyboardTutorialButtonLevel1.image.color = Color.white;
+        keyboardTutorialButtonLevel2.image.color = Color.white;
+        keyboardTutorialButtonLevel3.image.color = Color.white;
         Spacebar.image.color = Color.white;
         WKeyButton.image.color = Color.white;
         AKeyButton.image.color = Color.white;
