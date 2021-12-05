@@ -10,7 +10,7 @@ public class MenuController : MonoBehaviour
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
     public TextMeshProUGUI latestMouse1, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
-    public Button mouseTutorialButton, keyboardTutorialButton, dualshockTutorialButton;
+    public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
     public void Start()
     {
         Debug.Log("Start Menue Scene");
@@ -83,7 +83,6 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetInt("MouseTurorial", 1);
             mouseTutorialButton.onClick.Invoke();
         }
-
     }
     public void KeyboardMenu()
     {
@@ -93,7 +92,6 @@ public class MenuController : MonoBehaviour
             Debug.Log("keyboardmenu");
             keyboardTutorialButton.onClick.Invoke();
         }
-
     }
     public void DualshockMenu()
     {
@@ -102,6 +100,9 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetInt("DualshokTurorial", 1);
             dualshockTutorialButton.onClick.Invoke();
         }
-
+    }
+    public void KeyboardTutorialLvl1()
+    {
+        Spacebar.image.color = Color.green;
     }
 }
