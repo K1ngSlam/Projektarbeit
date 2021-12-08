@@ -11,9 +11,20 @@ public class MenuController : MonoBehaviour
     public TextMeshProUGUI highscoreInput;
     public TextMeshProUGUI latestMouse1, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
     public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
+    public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton;
     public void Start()
     {
         Debug.Log("Start Menue Scene");
+
+        if(SystemInfo.deviceType == DeviceType.Handheld)                    //Checkt ob die App auf einem Handheld läuft und disabled Maus, Tastur, Kontroller optionen
+        {
+            KeyboardMenuButton = GameObject.Find("KeyboardMenuButton");
+            ControllerMenuButton = GameObject.Find("ControllerMenuButton");
+            //MouseMenuButton = GameObject.Find("MouseMenuButton");
+            KeyboardMenuButton.SetActive(false);
+            ControllerMenuButton.SetActive(false);
+            //MouseMenuButton.SetActive(false);
+        }
 
         PlayerPrefs.SetInt("MouseTurorial", 0);
         PlayerPrefs.SetInt("KeyboardTurorial", 0);
