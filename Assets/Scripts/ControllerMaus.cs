@@ -6,8 +6,8 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 public class ControllerMaus : SuperController
-{ 
-   
+{
+
     void Start()
     {
         Debug.Log("Maus Start");
@@ -17,15 +17,17 @@ public class ControllerMaus : SuperController
 
     void Update()
     {
-        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
             PlayerPrefs.SetFloat("LatestMouse1", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");
         }
     }
+
+
 }
