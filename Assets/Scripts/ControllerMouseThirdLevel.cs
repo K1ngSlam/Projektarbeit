@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices;
 
-
-public class ControllerMouseSecondLevel : MonoBehaviour
+public class ControllerMouseThirdLevel : MonoBehaviour
 {
     [SerializeField]
     protected SpriteRenderer background;
     [SerializeField]
     protected Text information;
-
+    
+    [DllImport("user32.dll")]
+    static extern bool SetCursorPos(int X, int Y);
     protected string _inputDevice;
 
     protected Color red;
@@ -24,12 +26,14 @@ public class ControllerMouseSecondLevel : MonoBehaviour
     protected List<float> reactionTimeAverage;
     protected short counter;
 
-    public Button buttonAbove, buttonBelow, buttonSearched;
+    public Button buttonNorth, buttonNorthEast, buttonEast, buttonSouthEast, buttonSouth, buttonSouthWest, buttonWest, buttonNorthWest, buttonSearched;
+    public int intbuttonSearched;
 
     protected KeyCode _StartKey;
 
     void Start()
-    {        nextButtonPressEnabled = true;
+    {
+        nextButtonPressEnabled = true;
 
         Debug.Log("Maus Start");
         red = new Color(231f / 255f, 24f / 255f, 55f / 255f);
@@ -52,7 +56,7 @@ public class ControllerMouseSecondLevel : MonoBehaviour
     {
         if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
-            PlayerPrefs.SetFloat("LatestMouse2", reactionTimeAverage.Average());
+            PlayerPrefs.SetFloat("LatestMouse3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
         else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
@@ -62,22 +66,15 @@ public class ControllerMouseSecondLevel : MonoBehaviour
         }
     }
 
-    public void buttonUpper()
+    public void buttonCaller(int i)
     {
-        if(buttonSearched == buttonAbove)
+        if(intbuttonSearched ==  i)
         {
             tempflag = true;
             Updater();
         }
     }
-    public void buttonLower()
-    {
-        if(buttonSearched == buttonBelow)
-        {
-            tempflag = true;
-            Updater();
-        }
-    }
+  
 
 
     protected void Updater()
@@ -114,23 +111,41 @@ public class ControllerMouseSecondLevel : MonoBehaviour
             }
             else if(!clockisTicking)
             {
-                int random_Button_Value = Random.Range(0, 2);
-                if(random_Button_Value == 1)
+                intbuttonSearched = Random.Range(0, 9);
+                Debug.Log("buttonsearhced:" + intbuttonSearched);
+                switch(intbuttonSearched)
                 {
-                    buttonSearched = buttonAbove;
+                    case 1:
+                        buttonSearched = buttonNorth;
+                        break;
+                    case 2:
+                        buttonSearched = buttonNorthEast;
+                        break;
+                    case 3:
+                        buttonSearched = buttonEast;
+                        break;
+                    case 4:
+                        buttonSearched = buttonSouthEast;
+                        break;
+                    case 5:
+                        buttonSearched = buttonSouth;
+                        break;
+                    case 6:
+                        buttonSearched = buttonSouthWest;
+                        break;
+                    case 7:
+                        buttonSearched = buttonWest;
+                        break;
+                    case 8:
+                        buttonSearched = buttonNorthWest;
+                        break;
                 }
-                else
-                {
-                    buttonSearched = buttonBelow;
-                }
-
-
                 StartCoroutine("StartDelay");
                 information.text = "Wait for Green!";
                 background.color = red;
                 clockisTicking = true;
                 timerstopable = false;
-             
+
             }
             else if(clockisTicking && timerstopable)
             {

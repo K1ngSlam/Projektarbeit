@@ -28,6 +28,4 @@ public class ControllerMaus : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
-
-
 }

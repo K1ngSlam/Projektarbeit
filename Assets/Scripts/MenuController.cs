@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 {
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
-    public TextMeshProUGUI latestMouse1, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
+    public TextMeshProUGUI latestMouse1, latestMouse2,latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
     public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
     public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton;
     public void Start()
@@ -31,6 +31,8 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.SetInt("DualshokTurorial", 0);
 
         latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") + "ms";
+        latestMouse2.text = "- " + PlayerPrefs.GetFloat("LatestMouse2", 0).ToString("N3") + "ms";
+        latestMouse3.text = "- " + PlayerPrefs.GetFloat("LatestMouse3", 0).ToString("N3") + "ms";
         latestKeyboard1.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard1", 0).ToString("N3") + "ms";
         latestKeyboard2.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard2", 0).ToString("N3") + "ms";
         latestKeyboard3.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard3", 0).ToString("N3") + "ms";
@@ -40,10 +42,24 @@ public class MenuController : MonoBehaviour
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
-    public void LoadSceneMouse()
+    public void LoadSceneMouse(int level)
     {
         //TODO:Check for Input avaiable
         SceneManager.LoadScene("MausScene");
+        switch(level)
+        {
+            case 1:
+                SceneManager.LoadScene("MausScene");
+                break;
+
+            case 2:
+                SceneManager.LoadScene("MausSecondLevelScene");
+                break;
+
+            //case 3:
+              //  SceneManager.LoadScene("KeyboardThirdLevel");
+               // break;
+        }
     }
     public void LoadSceneKeyboard(int level)
     {
