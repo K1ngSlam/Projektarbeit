@@ -6,6 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 40c4f4888783c3842aa42671026a9cae
+  - enabled: 1
     path: Assets/Scenes/MausScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/DualshockFirstLevelScene.unity
+    guid: 9a6ff575c543cc247a11d82c668ca133
+  - enabled: 1
+    path: Assets/Scenes/DualshockSecondLevelScene.unity
+    guid: 8ebb1fd59e3250c4a93a1761aea7d68f
+  - enabled: 1
+    path: Assets/Scenes/DualshockThirdLevelScene.unity
+    guid: cfdc87ac1b8d27e4eacaa5983a0ba17e
+  - enabled: 1
+    path: Assets/Scenes/KeyboardScene.unity
+    guid: 9251de1ad75735f419b8282ee64d1a91
+  - enabled: 1
+    path: Assets/Scenes/KeyboardSecondLevel.unity
+    guid: 72e5de05558b4614a8c6e7716eb1c296
+  - enabled: 1
+    path: Assets/Scenes/KeyboardThirdLevel.unity
+    guid: d8b3159ea8eee2e45973fc218ced913b
+  - enabled: 1
+    path: Assets/Scenes/PhoneScene.unity
+    guid: 21a2ed7448538ad4e919bcd48746d10d
   m_configObjects: {}

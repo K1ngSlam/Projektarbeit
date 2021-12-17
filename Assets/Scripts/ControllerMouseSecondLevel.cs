@@ -29,8 +29,8 @@ public class ControllerMouseSecondLevel : MonoBehaviour
     protected KeyCode _StartKey;
 
     void Start()
-    {        nextButtonPressEnabled = true;
-
+    {
+        nextButtonPressEnabled = true;
         Debug.Log("Maus Start");
         red = new Color(231f / 255f, 24f / 255f, 55f / 255f);
         green = new Color(73f / 255f, 182f / 255f, 117f / 255f);
@@ -82,8 +82,6 @@ public class ControllerMouseSecondLevel : MonoBehaviour
 
     protected void Updater()
     {
-
-        Debug.Log("SuperController Updater Method");
         if(clockisTicking && !timerstopable)
         {
             StopCoroutine("StartDelay");
@@ -154,8 +152,6 @@ public class ControllerMouseSecondLevel : MonoBehaviour
             }
         }
     }
-
-
     protected IEnumerator StartDelay()
     {
         randomDelay = Random.Range(0.5f, 5f);

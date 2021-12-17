@@ -11,7 +11,7 @@ public class MenuController : MonoBehaviour
     public TextMeshProUGUI highscoreInput;
     public TextMeshProUGUI latestMouse1, latestMouse2,latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
     public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
-    public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton;
+    public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton, PhoneMenuButton;
     public void Start()
     {
         Debug.Log("Start Menue Scene");
@@ -20,10 +20,11 @@ public class MenuController : MonoBehaviour
         {
             KeyboardMenuButton = GameObject.Find("KeyboardMenuButton");
             ControllerMenuButton = GameObject.Find("ControllerMenuButton");
-            //MouseMenuButton = GameObject.Find("MouseMenuButton");
+            MouseMenuButton = GameObject.Find("MouseMenuButton");
             KeyboardMenuButton.SetActive(false);
             ControllerMenuButton.SetActive(false);
-            //MouseMenuButton.SetActive(false);
+            MouseMenuButton.SetActive(false);
+            PhoneMenuButton.SetActive(true);
         }
 
         PlayerPrefs.SetInt("MouseTurorial", 0);
@@ -45,7 +46,6 @@ public class MenuController : MonoBehaviour
     public void LoadSceneMouse(int level)
     {
         //TODO:Check for Input avaiable
-        SceneManager.LoadScene("MausScene");
         switch(level)
         {
             case 1:
@@ -55,10 +55,24 @@ public class MenuController : MonoBehaviour
             case 2:
                 SceneManager.LoadScene("MausSecondLevelScene");
                 break;
+            
+            case 3:
+                SceneManager.LoadScene("MouseThirdLevelScene");
+                break;
 
-            //case 3:
-              //  SceneManager.LoadScene("KeyboardThirdLevel");
-               // break;
+        }
+    }
+    public void LoadScenePhone(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                SceneManager.LoadScene("PhoneScene");
+                break;
+
+            /*case 2:
+                SceneManager.LoadScene("PhoneSecondScene");
+                break;*/
         }
     }
     public void LoadSceneKeyboard(int level)
