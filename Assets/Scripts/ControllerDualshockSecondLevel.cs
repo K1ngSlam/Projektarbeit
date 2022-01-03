@@ -17,15 +17,15 @@ public class ControllerDualshockSecondLevel : SuperController
         codes.Add(KeyCode.Joystick1Button1);
         codes.Add(KeyCode.Joystick1Button2);
         codes.Add(KeyCode.Joystick1Button3);
-        List<string> axis= new List<string>();
+        List<string> axis = new List<string>();
         axis.Add("DpadX");
         axis.Add("DpadY");
-
-
+        _key_codes = codes;
+        _axis_codes = axis;
+        _has_No_Axis_Flag = 2;
         Debug.Log("Dualshock Level 2 Start");
-        Starter(KeyCode.Joystick1Button1, codes, "Dualshock", axis);
+        Starter(KeyCode.Joystick1Button1, "Dualshock");
         nextButtonPressEnabled = true;
-
     }
     void Update()
     {
@@ -35,15 +35,12 @@ public class ControllerDualshockSecondLevel : SuperController
         {
             AxisValue = Input.GetAxis(this._SearchedAxisName);
         }
-
-        //f  Debug.Log("Keyboard Update");
-        //
-        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
             PlayerPrefs.SetFloat("LatestController2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");

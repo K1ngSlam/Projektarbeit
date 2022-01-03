@@ -20,7 +20,8 @@ public class ControllerKeyboardThirdLevel : SuperController
         codes.Add(KeyCode.RightArrow);
         codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 3 Start");
-        Starter(KeyCode.Space, codes, "Keyboard");
+        _key_codes = codes;
+        Starter(KeyCode.Space, "Keyboard");
         nextButtonPressEnabled = true;
     }
 

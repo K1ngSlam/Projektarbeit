@@ -45,8 +45,7 @@ public class SuperController : MonoBehaviour
     }
 
     //TODO: Refactor to if possible remove overloading
-
-    protected void Starter(KeyCode key, List<KeyCode> codes, string inputDevice, List<string> axis)
+    /*protected void Starter(KeyCode key, string inputDevice,List<KeyCode> codes = null, List<string> axis = null)
     {
         _key_codes = codes;
         _axis_codes = axis;
@@ -70,7 +69,8 @@ public class SuperController : MonoBehaviour
         _StartKey = key;
         _SearchedKey = key;
         Starter();
-    }
+    }*/
+
     protected void Starter()
     {
         red = new Color(231f / 255f, 24f / 255f, 55f / 255f);
@@ -92,7 +92,7 @@ public class SuperController : MonoBehaviour
     {
         float AxisValue = 0;
         Debug.Log("before switch");
-        if (_SearchedAxisName != "")
+        if(_SearchedAxisName != "")
         {
             AxisValue = Input.GetAxis(_SearchedAxisName);
         }
@@ -122,7 +122,7 @@ public class SuperController : MonoBehaviour
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
                 background.color = green;
                 timerstopable = false;
-                if (PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
+                if(PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
                 {
                     PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
                     PlayerPrefs.SetString("HighScoreInput", _inputDevice);
@@ -130,14 +130,8 @@ public class SuperController : MonoBehaviour
                 nextButtonPressEnabled = false;
                 Isdone = true;
             }
-            else if (!clockisTicking)
+            else if(!clockisTicking)
             {
-                /* I could move this section into its own method, and make two versions of the method to make sure that
-                 * the randomizer isn't called when there's only one Key in the _key_codes list. However, the call of random
-                 * and new asignement of _SearchedKey should not cost enough processing power to make that change worth the effort,
-                 * especially since the time saved there would likely be consumed by the neccessary if-clause 
-                 * used to determine the right method to call.
-                 */
                 if(Random.Range(0, _has_No_Axis_Flag) == 0)
                 {
                     _SearchedAxisName = "";
