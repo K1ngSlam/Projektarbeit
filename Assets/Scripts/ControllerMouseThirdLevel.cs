@@ -21,7 +21,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
     protected Color green;
 
     protected float reactionTime, randomDelay, startTime;
-    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput, Isdone, tempflag;
+    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput, Isdone, isHoverOverRightSpot;
 
     protected List<float> reactionTimeAverage;
     protected short counter;
@@ -49,7 +49,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
         counter = 0;
         Isdone = false;
         _inputDevice = "mouse";
-        tempflag = false;
+        isHoverOverRightSpot = false;
     }
 
     void Update()
@@ -70,7 +70,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
     {
         if(intbuttonSearched ==  i)
         {
-            tempflag = true;
+            isHoverOverRightSpot = true;
             Updater();
         }
     }
@@ -89,9 +89,9 @@ public class ControllerMouseThirdLevel : MonoBehaviour
             timerstopable = false;
             information.text = "Too soon!!\n" + "Click to start again";
             nextButtonPressEnabled = false;
-            tempflag = false;
+            isHoverOverRightSpot = false;
         }
-        else if(Input.anyKeyDown || tempflag)
+        else if(Input.anyKeyDown || isHoverOverRightSpot)
         {
             Debug.Log("Is clock Ticking:" + clockisTicking);
             Debug.Log(counter);
@@ -151,6 +151,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
             {
                 StopCoroutine("StartDelay");
                 buttonSearched.image.enabled = false;
+                //SetCursorPos(Screen.width / 2, Screen.height / 2);
                 counter++;
                 reactionTime = Time.time - startTime;
                 reactionTimeAverage.Add(reactionTime);
@@ -163,7 +164,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
                 {
                     information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n" + "Click to start again";
                 }
-                tempflag = false;
+                isHoverOverRightSpot = false;
                 clockisTicking = false;
                 nextButtonPressEnabled = true;
             }
@@ -176,6 +177,7 @@ public class ControllerMouseThirdLevel : MonoBehaviour
         randomDelay = Random.Range(0.5f, 5f);
         yield return new WaitForSeconds(randomDelay);
         background.color = green;
+        information.text = "Now!";
         buttonSearched.image.enabled = true;
         startTime = Time.time;
         clockisTicking = true;
