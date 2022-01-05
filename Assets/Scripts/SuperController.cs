@@ -34,6 +34,7 @@ public class SuperController : MonoBehaviour
 
     protected void Starter(KeyCode key, string inputDevice)
     {
+        //TODO: Check if this can be removed
         if(_key_codes.Count == 0)
         {
             _key_codes.Add(key);
@@ -43,33 +44,6 @@ public class SuperController : MonoBehaviour
         _inputDevice = inputDevice;
         Starter();
     }
-
-    //TODO: Refactor to if possible remove overloading
-    /*protected void Starter(KeyCode key, string inputDevice,List<KeyCode> codes = null, List<string> axis = null)
-    {
-        _key_codes = codes;
-        _axis_codes = axis;
-        _has_No_Axis_Flag = 2;
-        Starter(key);
-        _inputDevice = inputDevice;
-    }
-
-    protected void Starter(KeyCode key, List<KeyCode> codes, string inputDevice)
-    {
-        _key_codes = codes;
-        Starter(key);
-        _inputDevice = inputDevice;
-    }
-    protected void Starter(KeyCode key)
-    {
-        if(_key_codes.Count == 0)
-        {
-            _key_codes.Add(key);
-        }
-        _StartKey = key;
-        _SearchedKey = key;
-        Starter();
-    }*/
 
     protected void Starter()
     {
@@ -117,6 +91,7 @@ public class SuperController : MonoBehaviour
         }
         else if(rightInput)
         {
+            //end result
             if(!clockisTicking && counter == 3)
             {
                 information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
@@ -130,6 +105,7 @@ public class SuperController : MonoBehaviour
                 nextButtonPressEnabled = false;
                 Isdone = true;
             }
+            //screen that tells you to wait for the signal
             else if(!clockisTicking)
             {
                 if(Random.Range(0, _has_No_Axis_Flag) == 0)
@@ -160,6 +136,7 @@ public class SuperController : MonoBehaviour
                 clockisTicking = true;
                 timerstopable = false;
             }
+            //Result of one Test
             else if(clockisTicking && timerstopable)
             {
                 StopCoroutine("StartDelay");
