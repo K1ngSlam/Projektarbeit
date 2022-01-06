@@ -25,7 +25,6 @@ public class ControllerMouseSecondLevel : MonoBehaviour
     protected short counter;
 
     public Button buttonAbove, buttonBelow, buttonSearched;
-
     protected KeyCode _StartKey;
 
     void Start()
@@ -79,7 +78,6 @@ public class ControllerMouseSecondLevel : MonoBehaviour
         }
     }
 
-
     protected void Updater()
     {
         if(clockisTicking && !timerstopable)
@@ -121,14 +119,11 @@ public class ControllerMouseSecondLevel : MonoBehaviour
                 {
                     buttonSearched = buttonBelow;
                 }
-
-
                 StartCoroutine("StartDelay");
                 information.text = "Wait for Green!";
                 background.color = red;
                 clockisTicking = true;
                 timerstopable = false;
-             
             }
             else if(clockisTicking && timerstopable)
             {

@@ -9,14 +9,19 @@ public class MenuController : MonoBehaviour
 {
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
-    public TextMeshProUGUI latestMouse1, latestMouse2,latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
+    public TextMeshProUGUI latestMouse1, latestMouse2, latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
     public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
     public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton, PhoneMenuButton;
+    public static bool bolMouseTutorialShown = false;
+    public static bool bolKeyboardTutorialShown = false;
+    public static bool bolDualshockTutorialShown = false;
+
+
     public void Start()
     {
         Debug.Log("Start Menue Scene");
 
-        if(SystemInfo.deviceType == DeviceType.Handheld)                    //Checkt ob die App auf einem Handheld läuft und disabled Maus, Tastur, Kontroller optionen
+        if(SystemInfo.deviceType == DeviceType.Handheld)                    //Checkt ob die App auf einem Handheld lï¿½uft und disabled Maus, Tastur, Kontroller optionen
         {
             KeyboardMenuButton = GameObject.Find("KeyboardMenuButton");
             ControllerMenuButton = GameObject.Find("ControllerMenuButton");
@@ -26,6 +31,7 @@ public class MenuController : MonoBehaviour
             MouseMenuButton.SetActive(false);
             PhoneMenuButton.SetActive(true);
         }
+
 
         PlayerPrefs.SetInt("MouseTurorial", 0);
         PlayerPrefs.SetInt("KeyboardTurorial", 0);
@@ -55,7 +61,7 @@ public class MenuController : MonoBehaviour
             case 2:
                 SceneManager.LoadScene("MausSecondLevelScene");
                 break;
-            
+
             case 3:
                 SceneManager.LoadScene("MouseThirdLevelScene");
                 break;
@@ -64,15 +70,15 @@ public class MenuController : MonoBehaviour
     }
     public void LoadScenePhone(int level)
     {
-        switch (level)
+        switch(level)
         {
             case 1:
                 SceneManager.LoadScene("PhoneScene");
                 break;
 
-            /*case 2:
-                SceneManager.LoadScene("PhoneSecondScene");
-                break;*/
+                /*case 2:
+                    SceneManager.LoadScene("PhoneSecondScene");
+                    break;*/
         }
     }
     public void LoadSceneKeyboard(int level)
@@ -119,25 +125,27 @@ public class MenuController : MonoBehaviour
     }
     public void MouseMenu()
     {
-        if(PlayerPrefs.GetInt("MouseTurorial") == 0)
+        if(!bolMouseTutorialShown)
         {
+            bolMouseTutorialShown = true;
             PlayerPrefs.SetInt("MouseTurorial", 1);
             mouseTutorialButton.onClick.Invoke();
         }
     }
     public void KeyboardMenu()
     {
-        if(PlayerPrefs.GetInt("KeyboardTurorial") == 0)
+        if(!bolKeyboardTutorialShown)
         {
-            PlayerPrefs.SetInt("KeyboardTurorial", 1);
+            bolKeyboardTutorialShown = true;
             Debug.Log("keyboardmenu");
             keyboardTutorialButton.onClick.Invoke();
         }
     }
     public void DualshockMenu()
     {
-        if(PlayerPrefs.GetInt("DualshokTurorial") == 0)
+        if(!bolDualshockTutorialShown)
         {
+            bolDualshockTutorialShown = true;
             PlayerPrefs.SetInt("DualshokTurorial", 1);
             dualshockTutorialButton.onClick.Invoke();
         }
@@ -147,4 +155,5 @@ public class MenuController : MonoBehaviour
     {
         Application.Quit();
     }
+}
 }

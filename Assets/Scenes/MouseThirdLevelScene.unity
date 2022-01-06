@@ -2422,6 +2422,8 @@ MonoBehaviour:
   buttonNorthWest: {fileID: 1363427196}
   buttonSearched: {fileID: 0}
   intbuttonSearched: 0
+  target: {fileID: 249965522}
+  cam: {fileID: 8675883}
 --- !u!4 &2120749075
 Transform:
   m_ObjectHideFlags: 0

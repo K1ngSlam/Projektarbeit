@@ -16,9 +16,9 @@ public class ControllerKeyboardSecondLevel : SuperController
         codes.Add(KeyCode.D);
         codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 2 Start");
-        Starter(KeyCode.Space, codes, "Keyboard");
+        _key_codes = codes;
+        Starter(KeyCode.Space, "Keyboard");
         nextButtonPressEnabled = true;
-
     }
 
     void Update()
