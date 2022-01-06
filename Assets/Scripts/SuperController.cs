@@ -85,7 +85,7 @@ public class SuperController : MonoBehaviour
         reactionTimeAverage = new List<float>();
         counter = 0;
         Isdone = false;
-        Application.targetFrameRate = 60; //Deswegen wars am Handy auch komisch mit den Reaktionszeiten
+        Application.targetFrameRate = 144; //Deswegen wars am Handy auch komisch mit den Reaktionszeiten
     }
 
     protected void Updater()

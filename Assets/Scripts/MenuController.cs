@@ -142,4 +142,9 @@ public class MenuController : MonoBehaviour
             dualshockTutorialButton.onClick.Invoke();
         }
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
