@@ -9,6 +9,7 @@ public class ControllerKeyboard : SuperController
     void Start()
     {
         Debug.Log("Keyboard Start");
+        _key_codes.Add(KeyCode.Space);
         Starter(KeyCode.Space, "Keyboard");
         nextButtonPressEnabled = true;
     }

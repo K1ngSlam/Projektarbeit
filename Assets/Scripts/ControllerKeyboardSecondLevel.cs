@@ -9,14 +9,14 @@ public class ControllerKeyboardSecondLevel : SuperController
     // Start is called before the first frame update
     void Start()
     {
-        List<KeyCode> codes = new List<KeyCode>();
-        codes.Add(KeyCode.A);
-        codes.Add(KeyCode.W);
-        codes.Add(KeyCode.S);
-        codes.Add(KeyCode.D);
-        codes.Add(KeyCode.Space);
+        _key_codes = new List<KeyCode>();
+        _key_codes.Add(KeyCode.A);
+        _key_codes.Add(KeyCode.W);
+        _key_codes.Add(KeyCode.S);
+        _key_codes.Add(KeyCode.D);
+        _key_codes.Add(KeyCode.Space);
         Debug.Log("Keyboard Level 2 Start");
-        _key_codes = codes;
+     
         Starter(KeyCode.Space, "Keyboard");
         nextButtonPressEnabled = true;
     }

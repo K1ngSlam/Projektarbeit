@@ -11,6 +11,7 @@ public class ControllerMaus : SuperController
     void Start()
     {
         Debug.Log("Maus Start");
+        _key_codes.Add(KeyCode.Mouse0);
         Starter(KeyCode.Mouse0, "Mouse");
         nextButtonPressEnabled = true;
     }

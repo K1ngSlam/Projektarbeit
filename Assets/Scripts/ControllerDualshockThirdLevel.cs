@@ -10,19 +10,17 @@ public class ControllerDualshockThirdLevel : SuperController
     // Start is called before the first frame update
     void Start()
     {
-        List<KeyCode> codes = new List<KeyCode>();
-        codes.Add(KeyCode.Joystick1Button4);
-        codes.Add(KeyCode.Joystick1Button5);
-        codes.Add(KeyCode.Joystick1Button6);
-        codes.Add(KeyCode.Joystick1Button7);
-        List<string> axis = new List<string>();
-        axis.Add("Horizontal");
-        axis.Add("Vertical");
-        axis.Add("RightStickX");
-        axis.Add("RightStickY");
+        _key_codes = new List<KeyCode>();
+        _key_codes.Add(KeyCode.Joystick1Button4);
+        _key_codes.Add(KeyCode.Joystick1Button5);
+        _key_codes.Add(KeyCode.Joystick1Button6);
+        _key_codes.Add(KeyCode.Joystick1Button7);
+        _axis_codes = new List<string>();
+        _axis_codes.Add("Horizontal");
+        _axis_codes.Add("Vertical");
+        _axis_codes.Add("RightStickX");
+        _axis_codes.Add("RightStickY");
         Debug.Log("Dualshock Level 2 Start");
-        _key_codes = codes;
-        _axis_codes = axis;
         _has_No_Axis_Flag = 2;
         Starter(KeyCode.Joystick1Button1, "Dualshock");
         nextButtonPressEnabled = true;
