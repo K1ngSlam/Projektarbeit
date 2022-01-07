@@ -24,7 +24,7 @@ public class ControllerDualshockThirdLevel : SuperController
         _key_codes = codes;
         _axis_codes = axis;
         _has_No_Axis_Flag = 2;
-        Starter(KeyCode.Joystick1Button1, "Dualshock");
+        Starter(KeyCode.Joystick1Button1, "Gamepad");
         nextButtonPressEnabled = true;
 
     }

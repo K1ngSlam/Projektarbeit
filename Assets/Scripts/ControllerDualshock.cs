@@ -9,7 +9,7 @@ public class ControllerDualshock : SuperController
     void Start()
     {
         Debug.Log("Dualshock Start");
-        Starter(KeyCode.Joystick1Button1,"Controller");
+        Starter(KeyCode.Joystick1Button1,"Gamepad");
         nextButtonPressEnabled = true;
     }
 

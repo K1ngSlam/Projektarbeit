@@ -76,9 +76,10 @@ public class MenuController : MonoBehaviour
                 SceneManager.LoadScene("PhoneScene");
                 break;
 
-                /*case 2:
-                    SceneManager.LoadScene("PhoneSecondScene");
-                    break;*/
+                
+            case 2:
+                SceneManager.LoadScene("PhoneSecondScene");
+                break;
         }
     }
     public void LoadSceneKeyboard(int level)

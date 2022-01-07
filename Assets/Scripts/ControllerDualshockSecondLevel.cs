@@ -24,7 +24,7 @@ public class ControllerDualshockSecondLevel : SuperController
         _axis_codes = axis;
         _has_No_Axis_Flag = 2;
         Debug.Log("Dualshock Level 2 Start");
-        Starter(KeyCode.Joystick1Button1, "Dualshock");
+        Starter(KeyCode.Joystick1Button1, "Gamepad");
         nextButtonPressEnabled = true;
     }
     void Update()

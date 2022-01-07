@@ -43,7 +43,7 @@ public class ControllerMouseSecondLevel : MonoBehaviour
         reactionTimeAverage = new List<float>();
         counter = 0;
         Isdone = false;
-        _inputDevice = "mouse";
+        _inputDevice = "Mouse";
         tempflag = false;
     }
 
