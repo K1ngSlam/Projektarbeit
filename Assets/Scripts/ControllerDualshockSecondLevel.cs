@@ -12,16 +12,14 @@ public class ControllerDualshockSecondLevel : SuperController
     {
         //TODO: try wit codes an axis not as parameter but just set
 
-        List<KeyCode> codes = new List<KeyCode>();
-        codes.Add(KeyCode.Joystick1Button0);
-        codes.Add(KeyCode.Joystick1Button1);
-        codes.Add(KeyCode.Joystick1Button2);
-        codes.Add(KeyCode.Joystick1Button3);
-        List<string> axis = new List<string>();
-        axis.Add("DpadX");
-        axis.Add("DpadY");
-        _key_codes = codes;
-        _axis_codes = axis;
+        _key_codes = new List<KeyCode>();
+        _key_codes.Add(KeyCode.Joystick1Button0);
+        _key_codes.Add(KeyCode.Joystick1Button1);
+        _key_codes.Add(KeyCode.Joystick1Button2);
+        _key_codes.Add(KeyCode.Joystick1Button3);
+        _axis_codes = new List<string>();
+        _axis_codes.Add("DpadX");
+        _axis_codes.Add("DpadY");
         _has_No_Axis_Flag = 2;
         Debug.Log("Dualshock Level 2 Start");
         Starter(KeyCode.Joystick1Button1, "Gamepad");

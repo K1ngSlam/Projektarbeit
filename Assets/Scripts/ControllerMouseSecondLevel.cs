@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 
 
-public class ControllerMouseSecondLevel : MonoBehaviour
+public class ControllerMouseSecondLevel : AdvancedMouseSuperController
 {
     [SerializeField]
     protected SpriteRenderer background;
@@ -61,106 +61,17 @@ public class ControllerMouseSecondLevel : MonoBehaviour
         }
     }
 
-    public void buttonUpper()
+    protected override void ButtonRandomiser()
     {
-        if(buttonSearched == buttonAbove)
+        intbuttonSearched = Random.Range(0, 2);
+        switch(intbuttonSearched)
         {
-            tempflag = true;
-            Updater();
+            case 0:
+                buttonSearched = buttonAbove;
+                break;
+            case 1:
+                buttonSearched = buttonBelow;
+                break;
         }
-    }
-    public void buttonLower()
-    {
-        if(buttonSearched == buttonBelow)
-        {
-            tempflag = true;
-            Updater();
-        }
-    }
-
-    protected void Updater()
-    {
-        if(clockisTicking && !timerstopable)
-        {
-            StopCoroutine("StartDelay");
-            reactionTime = 0f;
-            clockisTicking = false;
-            timerstopable = false;
-            information.text = "Too soon!!\n" + "Click to start again";
-            nextButtonPressEnabled = false;
-            tempflag = false;
-        }
-        else if(Input.anyKeyDown || tempflag)
-        {
-            Debug.Log("Is clock Ticking:" + clockisTicking);
-            Debug.Log(counter);
-
-            if(!clockisTicking && counter == 3)
-            {
-                information.text = "Test is Over!\n Your Average is: " + reactionTimeAverage.Average().ToString("N3") + "sec";
-                background.color = green;
-                timerstopable = false;
-                if(PlayerPrefs.GetFloat("HighScore") > reactionTimeAverage.Average() || PlayerPrefs.GetFloat("HighScore") == 0)
-                {
-                    PlayerPrefs.SetFloat("HighScore", reactionTimeAverage.Average());
-                    PlayerPrefs.SetString("HighScoreInput", _inputDevice);
-                }
-                nextButtonPressEnabled = false;
-                Isdone = true;
-            }
-            else if(!clockisTicking)
-            {
-                int random_Button_Value = Random.Range(0, 2);
-                if(random_Button_Value == 1)
-                {
-                    buttonSearched = buttonAbove;
-                }
-                else
-                {
-                    buttonSearched = buttonBelow;
-                }
-                StartCoroutine("StartDelay");
-                information.text = "Wait for Green!";
-                background.color = red;
-                clockisTicking = true;
-                timerstopable = false;
-            }
-            else if(clockisTicking && timerstopable)
-            {
-                StopCoroutine("StartDelay");
-                buttonSearched.image.enabled = false;
-                counter++;
-                reactionTime = Time.time - startTime;
-                reactionTimeAverage.Add(reactionTime);
-                if(counter == 3)
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + "sec\n" + "Click to see Average";
-                    Debug.Log("counter:" + counter);
-                }
-                else
-                {
-                    information.text = "Reaction time:\n" + reactionTime.ToString("N3") + " sec\n" + "Click to start again";
-                }
-                tempflag = false;
-                clockisTicking = false;
-                nextButtonPressEnabled = true;
-            }
-        }
-    }
-    protected IEnumerator StartDelay()
-    {
-        randomDelay = Random.Range(0.5f, 5f);
-        yield return new WaitForSeconds(randomDelay);
-        background.color = green;
-        buttonSearched.image.enabled = true;
-        startTime = Time.time;
-        clockisTicking = true;
-        timerstopable = true;
-    }
-
-    protected IEnumerator DelayNextInput()
-    {
-        yield return new WaitForSeconds(0.5f);
-        nextButtonPressEnabled = true;
     }
 }
