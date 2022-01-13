@@ -3215,6 +3215,8 @@ MonoBehaviour:
   latestController1: {fileID: 0}
   latestController2: {fileID: 0}
   latestController3: {fileID: 0}
+  latestHandheld1: {fileID: 0}
+  latestHandheld2: {fileID: 0}
   mouseTutorialButton: {fileID: 0}
   keyboardTutorialButton: {fileID: 0}
   keyboardTutorialButtonLevel1: {fileID: 0}
@@ -3390,7 +3392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &485728940
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8547,7 +8549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1224195760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14700,6 +14702,14 @@ PrefabInstance:
       propertyPath: PhoneMenuButton
       value: 
       objectReference: {fileID: 1074310579}
+    - target: {fileID: 1544247996753760157, guid: 157db83cb6851ad428706c642f5f4939, type: 3}
+      propertyPath: latestHandheld1
+      value: 
+      objectReference: {fileID: 50354494}
+    - target: {fileID: 1544247996753760157, guid: 157db83cb6851ad428706c642f5f4939, type: 3}
+      propertyPath: latestHandheld2
+      value: 
+      objectReference: {fileID: 1947553362}
     - target: {fileID: 1544247996753760157, guid: 157db83cb6851ad428706c642f5f4939, type: 3}
       propertyPath: latestKeyboard1
       value: 
