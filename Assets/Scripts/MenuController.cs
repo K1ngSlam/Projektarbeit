@@ -9,12 +9,13 @@ public class MenuController : MonoBehaviour
 {
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
-    public TextMeshProUGUI latestMouse1, latestMouse2, latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3;
-    public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar;
+    public TextMeshProUGUI latestMouse1, latestMouse2, latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3, latestHandheld1, latestHandheld2;
+    public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar, handheldTutorialButton;
     public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton, PhoneMenuButton;
     public static bool bolMouseTutorialShown = false;
     public static bool bolKeyboardTutorialShown = false;
     public static bool bolDualshockTutorialShown = false;
+    public static bool bolHandheldTutorialShown = false;
 
 
     public void Start()
@@ -31,12 +32,6 @@ public class MenuController : MonoBehaviour
             MouseMenuButton.SetActive(false);
             PhoneMenuButton.SetActive(true);
         }
-
-
-        PlayerPrefs.SetInt("MouseTurorial", 0);
-        PlayerPrefs.SetInt("KeyboardTurorial", 0);
-        PlayerPrefs.SetInt("DualshokTurorial", 0);
-
         latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") + "ms";
         latestMouse2.text = "- " + PlayerPrefs.GetFloat("LatestMouse2", 0).ToString("N3") + "ms";
         latestMouse3.text = "- " + PlayerPrefs.GetFloat("LatestMouse3", 0).ToString("N3") + "ms";
@@ -46,6 +41,8 @@ public class MenuController : MonoBehaviour
         latestController1.text = "- " + PlayerPrefs.GetFloat("LatestController1", 0).ToString("N3") + "ms";
         latestController2.text = "- " + PlayerPrefs.GetFloat("LatestController2", 0).ToString("N3") + "ms";
         latestController3.text = "- " + PlayerPrefs.GetFloat("LatestController3", 0).ToString("N3") + "ms";
+        latestHandheld1.text = "- " + PlayerPrefs.GetFloat("LatestPhone1", 0).ToString("N3") + "ms";
+        latestHandheld2.text = "- " + PlayerPrefs.GetFloat("LatestPhone2", 0).ToString("N3") + "ms";
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
@@ -120,35 +117,54 @@ public class MenuController : MonoBehaviour
     }
     public void ResetHighScore()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("HighScore");
+        PlayerPrefs.DeleteKey("HighScoreInput");
+        PlayerPrefs.DeleteKey("LatestMouse1");
+        PlayerPrefs.DeleteKey("LatestMouse2");
+        PlayerPrefs.DeleteKey("LatestMouse3");
+        PlayerPrefs.DeleteKey("LatestKeyboard1");
+        PlayerPrefs.DeleteKey("LatestKeyboard2");
+        PlayerPrefs.DeleteKey("LatestKeyboard3");
+        PlayerPrefs.DeleteKey("LatestController1");
+        PlayerPrefs.DeleteKey("LatestController2");
+        PlayerPrefs.DeleteKey("LatestController3");
+        PlayerPrefs.DeleteKey("LatestPhone1");
+        PlayerPrefs.DeleteKey("LatestPhone2");
+        latestMouse1.text = "- " + PlayerPrefs.GetFloat("LatestMouse1", 0).ToString("N3") + "ms";
+        latestMouse2.text = "- " + PlayerPrefs.GetFloat("LatestMouse2", 0).ToString("N3") + "ms";
+        latestMouse3.text = "- " + PlayerPrefs.GetFloat("LatestMouse3", 0).ToString("N3") + "ms";
+        latestKeyboard1.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard1", 0).ToString("N3") + "ms";
+        latestKeyboard2.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard2", 0).ToString("N3") + "ms";
+        latestKeyboard3.text = "- " + PlayerPrefs.GetFloat("LatestKeyboard3", 0).ToString("N3") + "ms";
+        latestController1.text = "- " + PlayerPrefs.GetFloat("LatestController1", 0).ToString("N3") + "ms";
+        latestController2.text = "- " + PlayerPrefs.GetFloat("LatestController2", 0).ToString("N3") + "ms";
+        latestController3.text = "- " + PlayerPrefs.GetFloat("LatestController3", 0).ToString("N3") + "ms";
+        latestHandheld1.text = "- " + PlayerPrefs.GetFloat("LatestPhone1", 0).ToString("N3") + "ms";
+        latestHandheld2.text = "- " + PlayerPrefs.GetFloat("LatestPhone2", 0).ToString("N3") + "ms";
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
-    public void MouseMenu()
+    public void OpenTutorialIfNotShown(int tutorialDevice)
     {
-        if(!bolMouseTutorialShown)
+        if(!bolMouseTutorialShown && tutorialDevice == 1)
         {
             bolMouseTutorialShown = true;
-            PlayerPrefs.SetInt("MouseTurorial", 1);
             mouseTutorialButton.onClick.Invoke();
         }
-    }
-    public void KeyboardMenu()
-    {
-        if(!bolKeyboardTutorialShown)
+        if (!bolKeyboardTutorialShown && tutorialDevice == 2)
         {
             bolKeyboardTutorialShown = true;
-            Debug.Log("keyboardmenu");
             keyboardTutorialButton.onClick.Invoke();
         }
-    }
-    public void DualshockMenu()
-    {
-        if(!bolDualshockTutorialShown)
+        if (!bolDualshockTutorialShown && tutorialDevice == 3)
         {
             bolDualshockTutorialShown = true;
-            PlayerPrefs.SetInt("DualshokTurorial", 1);
             dualshockTutorialButton.onClick.Invoke();
+        }
+        if (!bolDualshockTutorialShown && tutorialDevice == 4)
+        {
+            bolHandheldTutorialShown = true;
+            handheldTutorialButton.onClick.Invoke();
         }
     }
 
