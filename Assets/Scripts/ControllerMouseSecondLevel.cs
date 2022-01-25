@@ -8,24 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class ControllerMouseSecondLevel : AdvancedMouseSuperController
 {
-    [SerializeField]
-    protected SpriteRenderer background;
-    [SerializeField]
-    protected Text information;
 
-    protected string _inputDevice;
+    protected bool tempflag;
 
-    protected Color red;
-    protected Color green;
 
-    protected float reactionTime, randomDelay, startTime;
-    protected bool clockisTicking, timerstopable, nextButtonPressEnabled, rightInput, Isdone, tempflag;
-
-    protected List<float> reactionTimeAverage;
-    protected short counter;
-
-    public Button buttonAbove, buttonBelow, buttonSearched;
-    protected KeyCode _StartKey;
+    public Button buttonAbove, buttonBelow;
 
     void Start()
     {
