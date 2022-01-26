@@ -33,6 +33,15 @@ EditorBuildSettings:
     path: Assets/Scenes/PhoneScene.unity
     guid: 21a2ed7448538ad4e919bcd48746d10d
   - enabled: 1
-    path: Assets/Scenes/PhoneSecondScene.unity
+    path: Assets/Scenes/PhoneThirdScene.unity
     guid: a9e599f3d2751144f8a68d992bed8533
+  - enabled: 1
+    path: Assets/Scenes/PhoneSecondScene.unity
+    guid: b5d2afd5286bb1d4dbc9789208af4a08
+  - enabled: 1
+    path: Assets/Scenes/MausSecondLevelScene.unity
+    guid: 55b9ee87c9928ab43a4b766ba4f41513
+  - enabled: 1
+    path: Assets/Scenes/MouseThirdLevelScene.unity
+    guid: 4bd401a18a26f684e9741af3bf13572d
   m_configObjects: {}

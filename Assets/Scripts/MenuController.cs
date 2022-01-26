@@ -9,7 +9,7 @@ public class MenuController : MonoBehaviour
 {
     public TextMeshProUGUI highscore;
     public TextMeshProUGUI highscoreInput;
-    public TextMeshProUGUI latestMouse1, latestMouse2, latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3, latestHandheld1, latestHandheld2;
+    public TextMeshProUGUI latestMouse1, latestMouse2, latestMouse3, latestKeyboard1, latestKeyboard2, latestKeyboard3, latestController1, latestController2, latestController3, latestHandheld1, latestHandheld2, latestHandheld3;
     public Button mouseTutorialButton, keyboardTutorialButton, keyboardTutorialButtonLevel1, dualshockTutorialButton, Spacebar, handheldTutorialButton;
     public GameObject KeyboardMenuButton, MouseMenuButton, ControllerMenuButton, PhoneMenuButton;
     public static bool bolMouseTutorialShown = false;
@@ -77,6 +77,10 @@ public class MenuController : MonoBehaviour
             case 2:
                 SceneManager.LoadScene("PhoneSecondScene");
                 break;
+
+            case 3:
+                SceneManager.LoadScene("PhoneThirdScene");
+                break;
         }
     }
     public void LoadSceneKeyboard(int level)
@@ -141,6 +145,7 @@ public class MenuController : MonoBehaviour
         latestController3.text = "- " + PlayerPrefs.GetFloat("LatestController3", 0).ToString("N3") + "ms";
         latestHandheld1.text = "- " + PlayerPrefs.GetFloat("LatestPhone1", 0).ToString("N3") + "ms";
         latestHandheld2.text = "- " + PlayerPrefs.GetFloat("LatestPhone2", 0).ToString("N3") + "ms";
+        latestHandheld3.text = "- " + PlayerPrefs.GetFloat("LatestPhone3", 0).ToString("N3") + "ms";
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
