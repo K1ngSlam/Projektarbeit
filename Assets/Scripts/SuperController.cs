@@ -42,6 +42,7 @@ public class SuperController : MonoBehaviour
         _StartKey = key;
         _SearchedKey = key;
         _inputDevice = inputDevice;
+        Random.InitState(128381);
         Starter();
     }
 
@@ -64,6 +65,7 @@ public class SuperController : MonoBehaviour
 
     protected void Updater()
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
         float AxisValue = 0;
         Debug.Log("before switch");
         if(_SearchedAxisName != "")
@@ -198,7 +200,7 @@ public class SuperController : MonoBehaviour
             case KeyCode.Joystick1Button2:
                 return "Press O";
             case KeyCode.Joystick1Button3:
-                return "Press Tirangle";
+                return "Press Triangle";
             case KeyCode.Joystick1Button4:
                 return "Press L1";
             case KeyCode.Joystick1Button5:

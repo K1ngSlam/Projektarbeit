@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
-
 public class ControllerPhoneThirdLvl : ControllerPhoneLvL2
 {
     private float rotationY;
@@ -28,14 +27,14 @@ public class ControllerPhoneThirdLvl : ControllerPhoneLvL2
         if(updown && !touchNeccessary && nextButtonPressEnabled && Mathf.Abs(rotationX) >= 4f)
         {
             PhoneUpdater();
-            StartCoroutine("DelayNextInput");
             DeterminFlick();
+            StartCoroutine("DelayNextInput");
         }
         if(leftright && !touchNeccessary && nextButtonPressEnabled && Mathf.Abs(rotationY) >= 4f)
         {
             PhoneUpdater();
-            StartCoroutine("DelayNextInput");
             DeterminFlick();
+            StartCoroutine("DelayNextInput");         
         }
         if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
@@ -52,8 +51,8 @@ public class ControllerPhoneThirdLvl : ControllerPhoneLvL2
     {
         leftright = false;
         updown = false;
-        
-        switch(Random.Range(0,2))
+        Random.InitState(System.DateTime.Now.Millisecond);
+        switch (Random.Range(0,2))
         {
             case 0:
                 OnScreenInfo = "Left or Right";
