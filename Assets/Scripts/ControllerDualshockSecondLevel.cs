@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using System;
 
 public class ControllerDualshockSecondLevel : SuperController
 {
@@ -29,16 +31,25 @@ public class ControllerDualshockSecondLevel : SuperController
     {
         float AxisValue = 0;
 
-        if(_SearchedAxisName != "")
+        if(nextButtonPressEnabled)
         {
-            AxisValue = Input.GetAxis(this._SearchedAxisName);
+            float DpadXValue = Input.GetAxis("DpadX");
+            float DpadYValue = Input.GetAxis("DpadY");
+            if(Math.Abs(DpadXValue) > Math.Abs(DpadYValue))
+            {
+                AxisValue = DpadXValue;
+            }
+            else
+            {
+                AxisValue = DpadYValue;
+            }
         }
         if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
             PlayerPrefs.SetFloat("LatestController2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        if((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if((Input.anyKeyDown || Math.Abs(AxisValue) == 1) && nextButtonPressEnabled)
         {
             Updater();
             StartCoroutine("DelayNextInput");

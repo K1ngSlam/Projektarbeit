@@ -91,7 +91,17 @@ public class SuperController : MonoBehaviour
             information.text = "Too soon!!\n" + getButtonName() + " to start again";
             nextButtonPressEnabled = false;
         }
-        else if(rightInput)
+        else if(!rightInput)
+        {
+            StopCoroutine("StartDelay");
+            reactionTime = 0f;
+            _SearchedKey = _StartKey;
+            clockisTicking = false;
+            timerstopable = false;
+            information.text = "Wrong Input!!\n" + getButtonName() + " to start again";
+            nextButtonPressEnabled = false;
+        }
+        else
         {
             //end result
             if(!clockisTicking && counter == 3)

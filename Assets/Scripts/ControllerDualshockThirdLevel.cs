@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
 
 public class ControllerDualshockThirdLevel : SuperController
 {
@@ -29,10 +30,28 @@ public class ControllerDualshockThirdLevel : SuperController
     void Update()
     {
         float AxisValue = 0;
-        
-        if(_SearchedAxisName != "")
+        if(nextButtonPressEnabled)
         {
-            AxisValue = Input.GetAxis(this._SearchedAxisName);
+            float Horizontal = Input.GetAxis("Horizontal");
+            float Vertical = Input.GetAxis("Vertical");
+            float RightStickX = Input.GetAxis("RightStickX");
+            float RightStickY = Input.GetAxis("RightStickY");
+            if(Math.Abs(Horizontal) > Math.Abs(Vertical))
+            {
+                AxisValue = Horizontal;
+            }
+            else if(Math.Abs(Vertical) > Math.Abs(RightStickX))
+            {
+                AxisValue = Vertical;
+            }
+            else if(Math.Abs(RightStickX) > Math.Abs(RightStickY))
+            {
+                AxisValue = RightStickX;
+            }
+            else
+            {
+                AxisValue = RightStickY;
+            }
         }
 
         //f  Debug.Log("Keyboard Update");
@@ -42,7 +61,7 @@ public class ControllerDualshockThirdLevel : SuperController
             PlayerPrefs.SetFloat("LatestController3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        if ((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if ((Input.anyKeyDown || Math.Abs(AxisValue) == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");
