@@ -64,5 +64,8 @@ public class ControllerPhoneThirdLvl : ControllerPhoneLvL2
                 break;
         }
     }
-    
+    protected override string getButtonName()
+    {
+        throw new System.NotImplementedException();
+    }
 }

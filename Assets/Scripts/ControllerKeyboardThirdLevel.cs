@@ -26,15 +26,31 @@ public class ControllerKeyboardThirdLevel : SuperController
 
     void Update()
     {
-        if (Input.anyKeyDown && Isdone && nextButtonPressEnabled)
+        if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
             PlayerPrefs.SetFloat("LatestKeyboard3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
         {
             Updater();
             StartCoroutine("DelayNextInput");
+        }
+    }
+    protected override string getButtonName()
+    {
+        switch(_SearchedKey)
+        {
+            case KeyCode.UpArrow:
+                return "Press Up Arrow";
+            case KeyCode.DownArrow:
+                return "Press Down Arrow";
+            case KeyCode.LeftArrow:
+                return "Press Left Arrow";
+            case KeyCode.RightArrow:
+                return "Press Right Arrow";
+            default:
+                return "Press " + _SearchedKey.ToString();
         }
     }
 }

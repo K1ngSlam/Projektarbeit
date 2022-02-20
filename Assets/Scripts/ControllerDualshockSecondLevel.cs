@@ -55,4 +55,44 @@ public class ControllerDualshockSecondLevel : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
+    protected override string getButtonName()
+    {
+        switch(_SearchedKey)
+        {
+            case KeyCode.Joystick1Button1:
+                return "Press X";
+            case KeyCode.Joystick1Button0:
+                return "Press Square";
+            case KeyCode.Joystick1Button2:
+                return "Press O";
+            case KeyCode.Joystick1Button3:
+                return "Press Triangle";
+            case KeyCode.None:
+                switch(_SearchedAxisName)
+                {
+                    case "DpadX":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Right";
+                        }
+                        else
+                        {
+                            return "Press Left";
+                        }
+                    case "DpadY":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Up";
+                        }
+                        else
+                        {
+                            return "Press Down";
+                        }
+                    default:
+                        return "Fehler";
+                }
+            default:
+                return "Press " + _SearchedKey.ToString();
+        }
+    }
 }

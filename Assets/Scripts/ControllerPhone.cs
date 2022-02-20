@@ -105,4 +105,8 @@ public class ControllerPhone : SuperController
         clockisTicking = false;
         nextButtonPressEnabled = false;
     }
+    protected override string getButtonName()
+    {
+        throw new System.NotImplementedException();
+    }
 }

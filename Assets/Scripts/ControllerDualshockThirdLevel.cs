@@ -67,4 +67,65 @@ public class ControllerDualshockThirdLevel : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
+    protected override string getButtonName()
+    {
+        //ToDo: switchcase through Device Type or class name
+        switch(_SearchedKey)
+        {
+            case KeyCode.Joystick1Button1:
+                return "Press X";
+            case KeyCode.Joystick1Button4:
+                return "Press L1";
+            case KeyCode.Joystick1Button5:
+                return "Press R1";
+            case KeyCode.Joystick1Button6:
+                return "Press L2";
+            case KeyCode.Joystick1Button7:
+                return "Press R2";
+            case KeyCode.None:
+                switch(_SearchedAxisName)
+                {
+                    case "Horizontal":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Left Stick Right";
+                        }
+                        else
+                        {
+                            return "Left Stick Left";
+                        }
+                    case "Vertical":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Left Stick Up";
+                        }
+                        else
+                        {
+                            return "Left Stick Down";
+                        }
+                    case "RightStickX":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Right Stick Right";
+                        }
+                        else
+                        {
+                            return "Right Stick Left";
+                        }
+                    case "RightStickY":
+                        if(_SearchedAxisValue == -1)
+                        {
+                            return "Right Stick Up";
+                        }
+                        else
+                        {
+                            return "Right Stick Down";
+                        }
+                    default:
+                        return "Fehler";
+                }
+            default:
+                return "Press " + _SearchedKey.ToString();
+        }
+    }
 }

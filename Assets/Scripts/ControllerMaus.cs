@@ -29,4 +29,8 @@ public class ControllerMaus : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
+    protected override string getButtonName()
+    {
+        return "Click";
+    }
 }

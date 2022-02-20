@@ -61,4 +61,8 @@ public class ControllerPhoneLvL2 : ControllerPhone
             touchNeccessary = true;
         }//Mainloop der Test wurde richtig ausgeführt und die Reaktionszeit gespeichert
     }
+    protected override string getButtonName()
+    {
+        throw new System.NotImplementedException();
+    }
 }
