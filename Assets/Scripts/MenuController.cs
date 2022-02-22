@@ -43,6 +43,7 @@ public class MenuController : MonoBehaviour
         latestController3.text = "- " + PlayerPrefs.GetFloat("LatestController3", 0).ToString("N3") + "ms";
         latestHandheld1.text = "- " + PlayerPrefs.GetFloat("LatestPhone1", 0).ToString("N3") + "ms";
         latestHandheld2.text = "- " + PlayerPrefs.GetFloat("LatestPhone2", 0).ToString("N3") + "ms";
+        latestHandheld3.text = "- " + PlayerPrefs.GetFloat("LatestPhone3", 0).ToString("N3") + "ms";
         highscore.text = PlayerPrefs.GetFloat("HighScore", 0).ToString("N3") + "ms";
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
