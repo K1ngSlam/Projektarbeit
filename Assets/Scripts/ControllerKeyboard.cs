@@ -26,5 +26,9 @@ public class ControllerKeyboard : SuperController
             Updater();
             StartCoroutine("DelayNextInput");
         }
-    }   
+    }
+    protected override string getButtonName()
+    {
+        return "Press " + _SearchedKey.ToString();
+    }
 }

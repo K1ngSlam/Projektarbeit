@@ -14,25 +14,6 @@ public class ControllerMouseSecondLevel : AdvancedMouseSuperController
 
     public Button buttonAbove, buttonBelow;
 
-    void Start()
-    {
-        nextButtonPressEnabled = true;
-        Debug.Log("Maus Start");
-        red = new Color(231f / 255f, 24f / 255f, 55f / 255f);
-        green = new Color(73f / 255f, 182f / 255f, 117f / 255f);
-        background.color = red;
-        reactionTime = 0f;
-        randomDelay = 0f;
-        startTime = 0f;
-        information.text = "Click to Start!";
-        clockisTicking = false;
-        timerstopable = false;
-        reactionTimeAverage = new List<float>();
-        counter = 0;
-        Isdone = false;
-        _inputDevice = "Mouse";
-        tempflag = false;
-    }
 
     void Update()
     {

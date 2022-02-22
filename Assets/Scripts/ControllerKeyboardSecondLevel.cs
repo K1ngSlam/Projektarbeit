@@ -34,4 +34,8 @@ public class ControllerKeyboardSecondLevel : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
+    protected override string getButtonName()
+    {
+        return "Press " + _SearchedKey.ToString();
+    }
 }

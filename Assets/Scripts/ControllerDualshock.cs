@@ -27,4 +27,9 @@ public class ControllerDualshock : SuperController
             StartCoroutine("DelayNextInput");
         }
     }
+
+    protected override string getButtonName()
+    {
+        return "Press X";
+    }
 }

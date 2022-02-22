@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class SuperController : MonoBehaviour
+public abstract class SuperController : MonoBehaviour
 {
     [SerializeField]
     protected SpriteRenderer background;
@@ -91,7 +91,17 @@ public class SuperController : MonoBehaviour
             information.text = "Too soon!!\n" + getButtonName() + " to start again";
             nextButtonPressEnabled = false;
         }
-        else if(rightInput)
+        else if(!rightInput)
+        {
+            StopCoroutine("StartDelay");
+            reactionTime = 0f;
+            _SearchedKey = _StartKey;
+            clockisTicking = false;
+            timerstopable = false;
+            information.text = "Wrong Input!!\n" + getButtonName() + " to start again";
+            nextButtonPressEnabled = false;
+        }
+        else
         {
             //end result
             if(!clockisTicking && counter == 3)
@@ -178,99 +188,5 @@ public class SuperController : MonoBehaviour
         nextButtonPressEnabled = true;
     }
 
-    private string getButtonName()
-    {
-        //ToDo: switchcase through Device Type or class name
-        switch(_SearchedKey)
-        {
-            case KeyCode.Mouse0:
-                return "Click";
-            case KeyCode.UpArrow:
-                return "Press Up Arrow";
-            case KeyCode.DownArrow:
-                return "Press Down Arrow";
-            case KeyCode.LeftArrow:
-                return "Press Left Arrow";
-            case KeyCode.RightArrow:
-                return "Press Right Arrow";
-            case KeyCode.Joystick1Button1:
-                return "Press X";
-            case KeyCode.Joystick1Button0:
-                return "Press Square";
-            case KeyCode.Joystick1Button2:
-                return "Press O";
-            case KeyCode.Joystick1Button3:
-                return "Press Triangle";
-            case KeyCode.Joystick1Button4:
-                return "Press L1";
-            case KeyCode.Joystick1Button5:
-                return "Press R1";
-            case KeyCode.Joystick1Button6:
-                return "Press L2";
-            case KeyCode.Joystick1Button7:
-                return "Press R2";
-            case KeyCode.None:
-                switch(_SearchedAxisName)
-                {
-                    case "DpadX":
-                        if(_SearchedAxisValue == 1)
-                        {
-                            return "Press Right";
-                        }
-                        else
-                        {
-                            return "Press Left";
-                        }
-                    case "DpadY":
-                        if(_SearchedAxisValue == 1)
-                        {
-                            return "Press Up";
-                        }
-                        else
-                        {
-                            return "Press Down";
-                        }
-                    case "Horizontal":
-                        if(_SearchedAxisValue == 1)
-                        {
-                            return "Left Stick Right";
-                        }
-                        else
-                        {
-                            return "Left Stick Left";
-                        }
-                    case "Vertical":
-                        if(_SearchedAxisValue == 1)
-                        {
-                            return "Left Stick Up";
-                        }
-                        else
-                        {
-                            return "Left Stick Down";
-                        }
-                    case "RightStickX":
-                        if(_SearchedAxisValue == 1)
-                        {
-                            return "Right Stick Right";
-                        }
-                        else
-                        {
-                            return "Right Stick Left";
-                        }
-                    case "RightStickY":
-                        if(_SearchedAxisValue == -1)
-                        {
-                            return "Right Stick Up";
-                        }
-                        else
-                        {
-                            return "Right Stick Down";
-                        }
-                    default:
-                        return "Fehler";
-                }
-            default:
-                return "Press " + _SearchedKey.ToString();
-        }
-    }
+    protected abstract string getButtonName();
 }

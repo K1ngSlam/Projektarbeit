@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
+using System;
 
 public class ControllerDualshockSecondLevel : SuperController
 {
@@ -29,19 +31,68 @@ public class ControllerDualshockSecondLevel : SuperController
     {
         float AxisValue = 0;
 
-        if(_SearchedAxisName != "")
+        if(nextButtonPressEnabled)
         {
-            AxisValue = Input.GetAxis(this._SearchedAxisName);
+            float DpadXValue = Input.GetAxis("DpadX");
+            float DpadYValue = Input.GetAxis("DpadY");
+            if(Math.Abs(DpadXValue) > Math.Abs(DpadYValue))
+            {
+                AxisValue = DpadXValue;
+            }
+            else
+            {
+                AxisValue = DpadYValue;
+            }
         }
         if(Input.anyKeyDown && Isdone && nextButtonPressEnabled)
         {
             PlayerPrefs.SetFloat("LatestController2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        if((Input.anyKeyDown || AxisValue * AxisValue == 1) && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        if((Input.anyKeyDown || Math.Abs(AxisValue) == 1) && nextButtonPressEnabled)
         {
             Updater();
             StartCoroutine("DelayNextInput");
+        }
+    }
+    protected override string getButtonName()
+    {
+        switch(_SearchedKey)
+        {
+            case KeyCode.Joystick1Button1:
+                return "Press X";
+            case KeyCode.Joystick1Button0:
+                return "Press Square";
+            case KeyCode.Joystick1Button2:
+                return "Press O";
+            case KeyCode.Joystick1Button3:
+                return "Press Triangle";
+            case KeyCode.None:
+                switch(_SearchedAxisName)
+                {
+                    case "DpadX":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Right";
+                        }
+                        else
+                        {
+                            return "Press Left";
+                        }
+                    case "DpadY":
+                        if(_SearchedAxisValue == 1)
+                        {
+                            return "Press Up";
+                        }
+                        else
+                        {
+                            return "Press Down";
+                        }
+                    default:
+                        return "Fehler";
+                }
+            default:
+                return "Press " + _SearchedKey.ToString();
         }
     }
 }
