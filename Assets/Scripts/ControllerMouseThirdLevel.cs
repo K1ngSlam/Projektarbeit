@@ -18,7 +18,7 @@ public class ControllerMouseThirdLevel : AdvancedMouseSuperController
             PlayerPrefs.SetFloat("LatestMouse3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        else if(Input.anyKeyDown && nextButtonPressEnabled) 
         {
             Updater();
             StartCoroutine("DelayNextInput");

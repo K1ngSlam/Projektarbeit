@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("Start Menue Scene");
 
-        if(SystemInfo.deviceType == DeviceType.Handheld)                    //Checkt ob die App auf einem Handheld l�uft und disabled Maus, Tastur, Kontroller optionen
+        if(SystemInfo.deviceType == DeviceType.Handheld)                    //Checkt ob die App auf einem Handheld an ist und disabled Maus, Tastur, Kontroller optionen
         {
             KeyboardMenuButton = GameObject.Find("KeyboardMenuButton");
             ControllerMenuButton = GameObject.Find("ControllerMenuButton");
@@ -48,8 +48,7 @@ public class MenuController : MonoBehaviour
         highscoreInput.text = PlayerPrefs.GetString("HighScoreInput", "");
     }
     public void LoadSceneMouse(int level)
-    {
-        //TODO:Check for Input avaiable
+    { 
         switch(level)
         {
             case 1:
@@ -86,7 +85,7 @@ public class MenuController : MonoBehaviour
     }
     public void LoadSceneKeyboard(int level)
     {
-        //TODO:Check for Input avaiable
+        
         switch(level)
         {
             case 1:
@@ -104,7 +103,7 @@ public class MenuController : MonoBehaviour
     }
     public void LoadSceneController(int level)
     {
-        //TODO:Check for Input avaiable
+        
         switch(level)
         {
             case 1:

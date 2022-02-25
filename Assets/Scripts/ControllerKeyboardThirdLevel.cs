@@ -31,7 +31,7 @@ public class ControllerKeyboardThirdLevel : SuperController
             PlayerPrefs.SetFloat("LatestKeyboard3", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        else if(Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        else if(Input.anyKeyDown && nextButtonPressEnabled) 
         {
             Updater();
             StartCoroutine("DelayNextInput");

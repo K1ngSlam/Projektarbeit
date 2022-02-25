@@ -23,7 +23,7 @@ public class ControllerPhone : SuperController
             PlayerPrefs.SetFloat("LatestPhone1", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        else if (Input.anyKeyDown && nextButtonPressEnabled) //TODO: Nicht bei irgendeinem Key sondern nur bei den bestimmten Keys
+        else if (Input.anyKeyDown && nextButtonPressEnabled)
         {
             PhoneUpdater();
             StartCoroutine("DelayNextInput");
@@ -92,7 +92,7 @@ public class ControllerPhone : SuperController
     {
         StopCoroutine("StartPhoneDelay");
         counter++;
-        reactionTime = Time.time - startTime;
+        reactionTime = (Time.time - startTime) - (float)0.007;
         reactionTimeAverage.Add(reactionTime);
         if (counter == 3)
         {

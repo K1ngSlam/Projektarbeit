@@ -12,7 +12,6 @@ public abstract class SuperController : MonoBehaviour
     protected Text information;
 
     protected string _inputDevice;
-
     protected Color red;
     protected Color green;
 
@@ -34,7 +33,6 @@ public abstract class SuperController : MonoBehaviour
 
     protected void Starter(KeyCode key, string inputDevice)
     {
-        //TODO: Check if this can be removed
         if(_key_codes.Count == 0)
         {
             _key_codes.Add(key);
@@ -60,7 +58,7 @@ public abstract class SuperController : MonoBehaviour
         reactionTimeAverage = new List<float>();
         counter = 0;
         Isdone = false;
-        Application.targetFrameRate = 144; //Deswegen wars am Handy auch komisch mit den Reaktionszeiten
+        Application.targetFrameRate = 144; 
     }
 
     protected void Updater()
@@ -94,6 +92,7 @@ public abstract class SuperController : MonoBehaviour
         else if(!rightInput)
         {
             StopCoroutine("StartDelay");
+            background.color = red;
             reactionTime = 0f;
             _SearchedKey = _StartKey;
             clockisTicking = false;
@@ -154,8 +153,7 @@ public abstract class SuperController : MonoBehaviour
                 StopCoroutine("StartDelay");
                 _SearchedKey = _StartKey;
                 counter++;
-                // Debug.Log(counter);
-                reactionTime = Time.time - startTime;
+                reactionTime = (Time.time - startTime) - (float)0.007; //0.007 ist die Laufzeit und damit die Zeit unter die man nicht kommen kann. Deshalb abziehen
                 reactionTimeAverage.Add(reactionTime);
                 if(counter == 3)
                 {

@@ -12,8 +12,6 @@ public class ControllerDualshockSecondLevel : SuperController
     // Start is called before the first frame update
     void Start()
     {
-        //TODO: try wit codes an axis not as parameter but just set
-
         _key_codes = new List<KeyCode>();
         _key_codes.Add(KeyCode.Joystick1Button0);
         _key_codes.Add(KeyCode.Joystick1Button1);
@@ -49,11 +47,11 @@ public class ControllerDualshockSecondLevel : SuperController
             PlayerPrefs.SetFloat("LatestController2", reactionTimeAverage.Average());
             SceneManager.LoadScene("Main Menu");
         }
-        if((Input.anyKeyDown || Math.Abs(AxisValue) == 1) && nextButtonPressEnabled)
+        if ((Input.anyKeyDown || Math.Abs(AxisValue) == 1) && nextButtonPressEnabled)
         {
             Updater();
             StartCoroutine("DelayNextInput");
-        }
+        }   
     }
     protected override string getButtonName()
     {
